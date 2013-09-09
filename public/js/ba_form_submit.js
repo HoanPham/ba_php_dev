@@ -38,7 +38,7 @@ function create_question(type){
 	});
 	if(type==="0104"||type==="0105"||type==="0101"){
 		$(".choice_right_"+type).each(function () {
-			if($(this).is(':checked'))
+			if($(this).is(':checked') || !$(this).closest('div').hasClass("off"))
 				choice_right_array.push(1);
 			else choice_right_array.push(0);					
 		});

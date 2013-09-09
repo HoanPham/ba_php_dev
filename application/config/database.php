@@ -48,10 +48,10 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'root';
-$db['default']['password'] = '24061007';
-$db['default']['database'] = 'education';
+$db['default']['hostname'] = 'tunnel.pagodabox.com:3306';
+$db['default']['username'] = 'danille';
+$db['default']['password'] = 'PYsxvrw5';
+$db['default']['database'] = 'ba_v12';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;

@@ -1,8 +1,7 @@
 web1: #component type & number
-  name: norman            #component settings
+  name: badev            #component settings
   shared_writable_dirs:
     - var/cache
-  document_root: app
   php_version: 5.3.23
   php_extensions:
     - mysql
@@ -17,5 +16,5 @@ db1: #component type & number
   type: mysql
  
 cache1:
-  name: sessions
+  name: ba_v12
   type: memcached

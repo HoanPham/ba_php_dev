@@ -1,5 +1,5 @@
 web1: #component type & number
-  name: blog            #component settings
+  name: norman            #component settings
   shared_writable_dirs:
     - var/cache
   document_root: app
@@ -13,11 +13,7 @@ web1: #component type & number
     - mbstring
      
 db1: #component type & number 
-  name: posts            #component settings
-  type: mysql
-   
-db2: #component type & number
-  name: subscribers       #component settings
+  name: ba_v12            #component settings
   type: mysql
  
 cache1:

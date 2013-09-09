@@ -1,0 +1,61 @@
+<title>Đăng nhập hệ thống</title>
+	<link rel="stylesheet" href="../public/css/login_style.css" type="text/css">
+	<script type="text/javascript" src="../public/js/jquery.js"></script>
+	<script type="text/javascript">
+		function dangnhap(){
+			if(typeof String.prototype.trim !== 'function') {
+				String.prototype.trim = function() {
+				return this.replace(/^\s+|\s+$/, ''); 
+				}
+			}
+			var ajax = new XMLHttpRequest();
+			var user = document.getElementById('user').value;
+			var passwd = document.getElementById('passwd').value;
+			if(user==""||passwd==""){
+				alert("Bạn cần nhập username và mật khẩu.");
+			}
+			else{
+				var str = "&user="+user+"&pass="+passwd;
+				ajax.open("POST","<?php echo base_url(); ?>"+"login/login_action",true);
+				ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");
+				ajax.send(str);
+				ajax.onreadystatechange = function(){
+					if(ajax.readyState == 4)
+					{
+						var response = ajax.responseText;
+						if(response.trim()=="Failed"){
+							document.getElementById('form_message').innerHTML = "Nhập sai username hoặc mật khẩu";
+						}
+						else{
+							window.location = "<?php echo base_url();?>";
+						}
+											   	
+					}					
+				}
+			}
+		}
+
+		$(window).bind('keydown', function(e){
+			if(e.keyCode==13)
+				dangnhap();	
+		});
+	</script>
+	<body style="text-align: center;">
+		<form id="form_login" method="post" onsubmit="dangnhap()">
+			<h1>Đăng nhập vào hệ thống</h1>
+			<p id="form_message"></p>
+			<p>
+				<label for="user">User name: </label> <input id="user" type="text"
+					class="input" name="user" placeholder="Tài khoản" />
+			</p>
+			<p>
+				<label for="passwd">Password: </label> <input id="passwd"
+					type="password" class="input" name="passwd" placeholder="Mật khẩu" />
+			</p>
+			<p>
+				<input type="button" name="submit" onclick="dangnhap()"
+					class="submit" value="Đăng nhập" style="background-color: #067CD3;">
+					<div style="font-color: red;" id="result"></div>
+			</p>
+		</form>
+	</body>

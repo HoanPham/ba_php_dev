@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	<title>Education Network</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Bootstrap -->
+	<link href="public/css/bootstrap.css" rel="stylesheet" media="screen">
+	<script type="text/javascript" src="public/js/jquery.js"></script>
+	<script type="text/javascript" src="public/js/jquery-ui.js"></script>
+	<script type="text/javascript" src="public/js/tiny_mce/plugins/asciimath/js/ASCIIMathMLwFallback.js"></script>
+	<script type="text/javascript">
+		var AMTcgiloc = "http://www.imathas.com/cgi-bin/mimetex.cgi";  		//change me
+	</script>
+	<!-- TinyMCE -->
+	<script type="text/javascript" src="public/js/tiny_mce/tiny_mce.js"></script>
+	<script type="text/javascript">
+		tinyMCE.init({
+			mode : "specific_textareas",
+	        editor_selector : "editor",
+		    theme : "advanced",
+		    //width:100%,
+	        height: 200,
+		    theme_advanced_buttons1 : "fontselect,fontsizeselect,formatselect,bold,italic,underline,strikethrough,separator,sub,sup,separator,cut,copy,paste,undo,redo",
+		    theme_advanced_buttons2 : "justifyleft,justifycenter,justifyright,justifyfull,separator,numlist,bullist,outdent,indent,separator,forecolor,backcolor,separator,hr,link,unlink,image,media,table,code,separator,asciimath,asciimathcharmap,asciisvg",
+		    theme_advanced_buttons3 : "",
+		    theme_advanced_fonts : "Arial=arial,helvetica,sans-serif,Courier New=courier new,courier,monospace,Georgia=georgia,times new roman,times,serif,Tahoma=tahoma,arial,helvetica,sans-serif,Times=times new roman,times,serif,Verdana=verdana,arial,helvetica,sans-serif",
+		    theme_advanced_toolbar_location : "top",
+		    theme_advanced_toolbar_align : "left",
+		    theme_advanced_statusbar_location : "bottom",
+		    plugins : 'asciimath,asciisvg,table,inlinepopups,media',
+		   
+		    AScgiloc : 'http://www.imathas.com/editordemo/php/svgimg.php',			      //change me  
+		    ASdloc : 'http://www.imathas.com/editordemo/jscripts/tiny_mce/plugins/asciisvg/js/d.svg',  //change me  	
+		    //theme_advanced_resizing_max_height : "240",
+		    content_css : "public/css/content.css"		       
+		});	
+	</script>
+	<!-- /TinyMCE -->
+	<link href="public/css/bootstrap-responsive.css" rel="stylesheet" media="screen">
+	<link href="public/css/style.css" rel="stylesheet" media="screen">
+	<script>
+		function handleClick(checkbox){
+			var checked = checkbox.checked;
+			if(checked==true){
+				document.getElementById('right_answer_input').style.display = "block";
+			}
+			else document.getElementById('right_answer_input').style.display = "none";
+		}
+		function switch_screen(checkbox){
+			var checked = checkbox.checked;
+			if(checked==true){
+				document.getElementById('common').style.display = "none";
+				document.getElementById('trad').style.display = "block";
+			}
+			else{
+				document.getElementById('common').style.display = "block";
+				document.getElementById('trad').style.display = "none";
+			}
+		}
+		function add_toolbar(){
+			document.getElementById("toolbar").style.display="block";
+			document.getElementById("add_toolbar").style.display="none";
+		}
+		function add_more_choice(val,id,object,type){
+			var len = $(val).val().length;	
+			var choices = id + 1;
+			var newFieldset = document.createElement("fieldset");						
+			switch(type){
+				case 1:
+					var type_id = "_full_point";					
+					break;
+				case 2:
+					var type_id = "_part_point";
+					break;
+				case 3:
+					var type_id = "_trad";
+					break;
+				case 4:
+					var type_id = "_short";
+					break;
+				case 5:
+					var type_id = "_cloze";
+					break;
+			}	
+			switch(object){			
+				case 1:
+					var object_id = "detailed_answer";
+					var form_id = "list_detail_answers";
+					newFieldset.setAttribute('id',choices+type_id);	
+					newFieldset.innerHTML = "<label for='"+object_id+choices+type_id+"'>Bước "+choices+"</label><textarea id='"+object_id+choices+type_id+"' onkeyup='add_more_choice(this,"+choices+","+object+","+type+")' placeholder='Bài giải bước "+choices+"'></textarea>";
+					break;
+				case 2:
+					var object_id = "hint";
+					var form_id = "list_hints";
+					newFieldset.setAttribute('id',choices+type_id);	
+					newFieldset.innerHTML = "<label for='"+object_id+choices+type_id+"'>Bước "+choices+"</label><textarea id='"+object_id+choices+type_id+"' onkeyup='add_more_choice(this,"+choices+","+object+","+type+")' placeholder='Gợi ý "+choices+"'></textarea>";
+					break;
+				case 3:
+					var object_id = "choice";
+					var form_id = "list_answers";	
+					newFieldset.setAttribute('id',choices+type_id);	
+					if(type==1)
+						newFieldset.innerHTML = "<br><label for='"+object_id+choices+type_id+"'>Lựa chọn "+choices+"</label> <textarea onkeyup='add_more_choice(this,"+choices+","+object+","+type+")' id='"+object_id+choices+type_id+"'></textarea><label for='"+object_id+choices+"_right"+type_id+"'>Đáp án đúng</label><input type='checkbox' id='"+object_id+choices+"_right"+type_id+"'><br><br><label for='explain"+choices+type_id+"'>Chú thích</label> <textarea id='explain"+choices+type_id+"' style='margin-left:11px;' placeholder='Giải thích'></textarea>";
+					else newFieldset.innerHTML = "<br><label for='"+object_id+choices+type_id+"'>Lựa chọn "+choices+"</label> <textarea onkeyup='add_more_choice(this,"+choices+","+object+","+type+")' id='"+object_id+choices+type_id+"'></textarea><label for='"+object_id+choices+"_right"+type_id+"'>Đáp án đúng</label><input type='checkbox' id='"+object_id+choices+"_right"+type_id+"'><br><br><label for='point1'>Điểm thành phần</label><select id='point"+choices+"' class='span3'><option value='0.25'>0.25</option><option value='0.75'>0.75</option><option value='1'>1</option></select><br><br><label for='explain"+choices+type_id+"'>Chú thích</label> <textarea id='explain"+choices+type_id+"' style='margin-left:11px;' placeholder='Giải thích'></textarea>";
+					break;
+			}	
+			if(len == 1 && document.getElementById(object_id+choices+type_id)==null){												
+				var formID = document.getElementById(form_id+type_id);
+				formID.appendChild(newFieldset);				
+			}
+			if(len == 0 && document.getElementById(object_id+choices+type_id) && document.getElementById(object_id+choices+type_id).value==""){
+				var formID = document.getElementById(form_id+type_id);
+				formID.removeChild(document.getElementById(choices+type_id));
+			}	
+		}
+		function addInput(){
+			var newInput = document.createElement("input");
+		}
+	</script>
+
+
+	<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML.js"></script>
+	<!-- MathJax -->
+	<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({
+   			tex2jax: {inlineMath: [["$","$"]]},
+   			displayAlign: "center",
+   			displayIndent: "0.1em"
+  		});
+	</script>
+	<!-- writemaths itself -->
+	<script type="text/javascript" src="public/js/writemaths.js"></script>
+	
+	<!-- initialise writemaths on all elements with class 'wm' -->
+	<script language="javascript">
+		$(document).ready(function() {
+			$('textarea.wm').writemaths({
+				position : 'center top',
+				previewPosition : 'center bottom'
+			});
+		});
+	</script>
+	<style>
+		.page-header{
+		padding-bottom:0;
+		margin: 5px 0 20px;
+		}
+		h4{
+		margin-top:0;
+		}
+		form{
+		margin:0;
+		}
+		.btn-toolbar{
+		margin:0;
+		}
+		.nav {
+		margin-bottom: 5px;
+		margin-left: 0;
+		list-style: none;
+		}
+		ul, ol {
+		padding: 0;
+		margin:0;
+		}
+		.row-fluid .span6 {
+		margin-left: 2.564102564102564%;
+		}
+	</style>	
+</head>  
+  <body>
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+				<a class="btn btn-navbar" data-toggle="collapse"
+					data-target=".nav-collapse"> <span class="icon-bar"></span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> </a> <a
+					class="brand" href="#" style="margin-left:11px;">Education</a>
+				<div class="nav-collapse collapse">
+					<!-- .nav, .navbar-search, .navbar-form, etc -->
+					<ul class="nav">
+						<li><a href="#">Trang chủ</a></li>
+						<li><a href="#">Link</a></li>
+						<li><a href="#">Link</a></li>
+					</ul>
+					<form class="navbar-search pull-left">
+						<i class="icon-search"
+							style="position: absolute; top: 6px; left: 12px;"></i> <input
+							type="text" class="search-query" placeholder="Search"
+							style="padding-left: 33px;">
+					</form>
+					<ul class="nav pull-right">
+						<li><a href="#"><i
+								class="icon-user icon-white"></i> Người dùng </a></li>
+						<li><a href="#"><i class="icon-book icon-white"></i> Thư
+								viện</a></li>
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown"> Tài khoản <b class="caret"></b> </a>
+							<ul class="dropdown-menu">
+								<li><a href="#">Trợ giúp</a>
+								</li>
+								<li><a href="#">Cài đặt</a>
+								</li>
+								<li><a href="#">Thoát</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid">		
+		<div class="row-fluid">
+    		<div class="span2">
+    			<!--sidebar content -->
+    			<div class="well sidebar-nav">
+	    			<ul class="nav nav-list">
+					  <li class="nav-header">
+					  	<a href="#" class="tab-link active"><img src="images/leaf-green.png" class="profile-tab-avatar"> Username</a>
+					  	<a href="/">
+                    		Learning Dashboard
+              			</a>
+					  </li>
+					  <li class="nav-header">Thành tích</li>
+					  <li class="nav-header">Lớp đang dạy</li> 
+					  <li><a href="#" class="list"><i class="icon-ok-sign"></i>Lớp 1</a></li>
+					  <li><a href="#" class="list"><i class="icon-ok-sign"></i>Lớp 2</a></li>
+					  <li><a href="#" class="list"><i class="icon-ok-sign"></i>Lớp 3</a></li>
+					  <li class="nav-header">Tài liệu</li>
+					</ul>					
+				</div>
+    		</div>    		
+    		<div class="span10">
+    			<div class="row-fluid show-grid">
+					<div class="span12">						
+						<ul id="myTab" class="nav nav-tabs"  style="margin-bottom: 15px;">
+							<li class="active"><a href="#multiple_choice" data-toggle="tab">Trắc nghiệm</a>
+							</li>
+							<li class=""><a id="tab_question" href="#short_answer" data-toggle="tab">Câu trả lời ngắn</a>
+							</li>
+							<li class=""><a id="tab_question" href="#cloze" data-toggle="tab">Cloze</a>
+							</li>							
+						</ul>
+				  		<div id="myTabContent" class="tab-content">	
+				  			<div class="tab-pane fade active in" id="multiple_choice">	
+				  				<ul id="myTab_multiple_choice" class="nav nav-tabs">
+									<li class="active"><a href="#traditional" data-toggle="tab">Truyền thống</a>
+									</li>
+									<li class=""><a id="tab_question" href="#full_point" data-toggle="tab">Điểm toàn phần</a>
+									</li>
+									<li class=""><a id="tab_question" href="#part_point" data-toggle="tab">Điểm từng phần</a>
+									</li>							
+								</ul>
+								<div id="myTab_multiple_choiceContent" class="tab-content">	
+									<div class="tab-pane fade" id="full_point">
+									  	<div class="span6">
+									  		<div class="page-header">
+											  <h4>Nội dung câu hỏi</h4>
+											</div>
+									  		<form>
+											  <fieldset>													
+													<textarea id="question_content_full_point" class="editor" placeholder="Nội dung câu hỏi"></textarea>	
+											   </fieldset>					    
+											</form>
+											<ul id="myTabFullPoint" class="nav nav-tabs">
+												<li class="active"><a href="#detailed_answer_full_point" data-toggle="tab">Bài giải chi tiết</a>
+												</li>
+												<li class=""><a id="tab_question" href="#hint_full_point" data-toggle="tab">Gợi ý</a>
+												</li>
+											</ul>
+											<div id="myTabFullPointContent" class="tab-content">
+												<div class="tab-pane fade active in" id="detailed_answer_full_point">
+													<form id="list_detail_answers_full_point">
+														<fieldset id="1_full_point">
+															<label for="detailed_answer1_full_point">Bước 1</label>
+															<textarea id="detailed_answer1_full_point" onkeyup="add_more_choice(this,1,1,1)" placeholder="Bài giải bước 1"></textarea>
+														</fieldset>
+													</form>
+												</div>
+												<div class="tab-pane fade" id="hint_full_point">
+													 <form id="list_hints_full_point">
+														<fieldset id="1_full_point">
+															<label for="hint1_full_point">Bước 1</label>
+															<textarea id="hint1_full_point" onkeyup="add_more_choice(this,1,2,1)" placeholder="Gợi ý 1"></textarea>
+														</fieldset>
+													</form>
+												</div>	
+									  		</div>
+									  	</div>
+										<div class="span6">
+											<div class="page-header" style="margin-bottom: 20px;">
+												<h4>Đáp án</h4>
+											</div>
+											<div id="question_area_preview_full_point">												
+											</div>
+											<form class="form-inline" id="list_answers_full_point">
+												<fieldset id="1_full_point">
+													<label for="choice1_full_point">Lựa chọn 1</label>																									
+													<textarea id="choice1_full_point"></textarea>
+													<label for="choice1_right_full_point">Đáp án đúng</label>
+													<input type="checkbox" id="choice1_right_full_point"><br><br>
+													<label for="explain1_right_full_point">Chú thích</label>
+													<textarea id="explain1_right_full_point"  style="margin-left:11px;" placeholder="Giải thích"></textarea>
+												</fieldset>
+												<br>
+												<fieldset id="2_full_point">
+													<label for="choice2_full_point">Lựa chọn 2</label>
+													<textarea id="choice2_full_point"></textarea>
+													<label for="choice2_right_full_point">Đáp án đúng</label>
+													<input type="checkbox" id="choice2_right_full_point"><br><br>
+													<label for="explain2_right_full_point">Chú thích</label>
+													<textarea id="explain2_right_full_point"  style="margin-left:11px;" placeholder="Giải thích"></textarea>
+												</fieldset>
+												<br>
+												<fieldset id="3_full_point">
+													<label for="choice3_full_point">Lựa chọn 3</label>
+													<textarea id="choice3_full_point"></textarea>
+													<label for="choice3_right_full_point">Đáp án đúng</label>
+													<input type="checkbox" id="choice3_right_full_point"><br><br>
+													<label for="explain3_right_full_point">Chú thích</label>
+													<textarea id="explain3_right_full_point"  style="margin-left:11px;" placeholder="Giải thích"></textarea>
+												</fieldset>
+												<br>
+												<fieldset id="4_full_point">
+													<label for="choice4_full_point">Lựa chọn 4</label>
+													<textarea id="choice4_full_point" onkeyup="add_more_choice(this,4,3,1)"></textarea>
+													<label for="choice4_right_full_point">Đáp án đúng</label>
+													<input type="checkbox" id="choice4_right_full_point"><br><br>
+													<label for="explain4_right_full_point">Chú thích</label>
+													<textarea id="explain4_right_full_point"  style="margin-left:11px;" placeholder="Giải thích"></textarea>
+												</fieldset>
+											</form>
+											<input id="all_wrong" type="checkbox"
+												onclick="handleClick(this);"> <span class="help-inline"><label
+												for="all_wrong">Không đáp án nào trong các đáp án trên</label>
+											</span>
+											<div id="right_answer_input" style="display: none;">
+												<form action="">
+													<fieldset>
+														<textarea id="right_answer_full_point" placeholder="Đáp án đúng"></textarea>
+													</fieldset>
+												</form>
+											</div>
+										</div>
+									</div>
+									<div class="tab-pane fade" id="part_point">
+										<div class="span6">
+									  		<div class="page-header">
+											  <h4>Nội dung câu hỏi</h4>
+											</div>
+									  		<form>
+											  <fieldset>													
+													<textarea class="editor" id="question_content_part_point" placeholder="Nội dung câu hỏi"></textarea>	
+											   </fieldset>					    
+											</form>
+											<ul id="myTabPartPoint" class="nav nav-tabs">
+												<li class="active"><a href="#detailed_answer_part_point" data-toggle="tab">Bài giải chi tiết</a>
+												</li>
+												<li class=""><a id="tab_question" href="#hint_part_point" data-toggle="tab">Gợi ý</a>
+												</li>
+											</ul>
+											<div id="myTabPartPointContent" class="tab-content">
+												<div class="tab-pane fade active in" id="detailed_answer_part_point">
+													<form id="list_detail_answers_part_point">
+														<fieldset id="1_part_point">
+															<label for="detailed_answer1_part_point">Bước 1</label>
+															<textarea id="detailed_answer1_part_point" onkeyup="add_more_choice(this,1,1,2)" placeholder="Bài giải bước 1"></textarea>
+														</fieldset>
+													</form>
+												</div>
+												<div class="tab-pane fade" id="hint_part_point">
+													 <form id="list_hints_part_point">
+														<fieldset id="1_part_point">
+															<label for="hint1_part_point">Bước 1</label>
+															<textarea id="hint1_part_point" onkeyup="add_more_choice(this,1,2,2)" placeholder="Gợi ý 1"></textarea>
+														</fieldset>
+													</form>
+												</div>	
+									  		</div>
+									  	</div>
+										<div class="span6">
+											<div class="page-header" style="margin-bottom: 20px;">
+												<h4>Đáp án</h4>
+											</div>
+											<div id="question_area_preview_part_point">												
+											</div>
+											<form class="form-inline" id="list_answers_part_point">
+												<fieldset id="1_part_point">
+													<label for="choice1_part_point">Lựa chọn 1</label>
+													<textarea id="choice1_part_point"></textarea>
+													<label for="choice1_right_part_point">Đáp án đúng</label>
+													<input type="checkbox" id="choice1_right_part_point"><br><br>
+													<label for="point1">Điểm thành phần</label>
+													<select id="point1" class="span3">
+														<option value="0.25">0.25</option>
+														<option value="0.75">0.75</option>
+														<option value="1">1</option>
+													</select><br><br>
+													<label for="explain1_part_point">Chú thích</label>
+													<textarea id="explain1_part_point"  style="margin-left:11px;" placeholder="Giải thích"></textarea>
+												</fieldset>
+												<br>
+												<fieldset id="2_part_point">
+													<label for="choice2_part_point">Lựa chọn 2</label>
+													<textarea id="choice2_part_point"></textarea>
+													<label for="choice2_right_part_point">Đáp án đúng</label>
+													<input type="checkbox" id="choice2_right_part_point"><br><br>
+													<label for="point2">Điểm thành phần</label>
+													<select id="point2" class="span3">
+														<option value="0.25">0.25</option>
+														<option value="0.75">0.75</option>
+														<option value="1">1</option>
+													</select><br><br>
+													<label for="explain2_part_point">Chú thích</label>
+													<textarea id="explain2_part_point"  style="margin-left:11px;" placeholder="Giải thích"></textarea>										
+												</fieldset>
+												<br>
+												<fieldset id="3_part_point">
+													<label for="choice3_part_point">Lựa chọn 3</label>
+													<textarea id="choice3_part_point"></textarea>
+													<label for="choice3_right_part_point">Đáp án đúng</label>
+													<input type="checkbox" id="choice3_right_part_point"><br><br>
+													<label for="point3">Điểm thành phần</label>
+													<select id="point3" class="span3">
+														<option value="0.25">0.25</option>
+														<option value="0.75">0.75</option>
+														<option value="1">1</option>
+													</select><br><br>
+													<label for="explain3_part_point">Chú thích</label>
+													<textarea id="explain3_part_point"  style="margin-left:11px;" placeholder="Giải thích"></textarea>
+												</fieldset>
+												<br>
+												<fieldset id="4_part_point">
+													<label for="choice4_part_point">Lựa chọn 4</label>
+													<textarea id="choice4_part_point" onkeyup="add_more_choice(this,4,3,2)"></textarea>
+													<label for="choice4_right_part_point">Đáp án đúng</label>
+													<input type="checkbox" id="choice4_right_part_point"><br><br>
+													<label for="point4">Điểm thành phần</label>
+													<select id="point4" class="span3">
+														<option value="0.25">0.25</option>
+														<option value="0.75">0.75</option>
+														<option value="1">1</option>
+													</select><br><br>
+													<label for="explain4_part_point">Chú thích</label>
+													<textarea id="explain4_part_point" style="margin-left:11px;" placeholder="Giải thích"></textarea>
+												</fieldset>
+											</form>
+											<input id="all_wrong" type="checkbox"
+												onclick="handleClick(this);"> <span class="help-inline"><label
+												for="all_wrong">Không đáp án nào trong các đáp án trên</label>
+											</span>
+											<div id="right_answer_input" style="display: none;">
+												<form action="">
+													<fieldset>
+														<textarea id="right_answer_part_point" placeholder="Đáp án đúng"></textarea>
+													</fieldset>
+												</form>
+											</div>
+										</div>
+									</div>
+									<div class="tab-pane fade active in" id="traditional">
+										<div class="span6">
+											<div class="page-header">
+												<h4>Nội dung câu hỏi</h4>
+											</div>
+											<form style="margin:0;">
+												<fieldset>																									
+													<textarea class="editor" id="question_content_trad" cols="20" rows="20" placeholder="Nội dung câu hỏi"></textarea>													
+												</fieldset>
+											</form>
+											<div class="row-fluid" style="padding:0;">
+												<div class="span4" style="border-right: 1px solid #ccc;">
+													<div class="page-header" style="margin: 0px;border:none">
+														<h4 style="font-size: 16px;text-align: center;">Đơn vị kiến thức</h4>
+													</div>
+													<form>
+														<fieldset>
+															<input type="text" class="span11">
+														</fieldset>
+													</form>
+												</div>
+												<div class="span4" style="border-right: 1px solid #ccc;">
+													<div class="page-header" style="margin: 0px;border:none">
+														<h4 style="font-size: 16px;text-align: center;">Phương pháp</h4>
+													</div>
+													<form>
+														<fieldset>
+															<input type="text" class="span11">
+														</fieldset>
+													</form>
+												</div>
+												<div class="span4" style="border-right: 1px solid #ccc;">
+													<div class="page-header" style="margin: 0px;border:none">
+														<h4 style="font-size: 16px;text-align: center;">Tag</h4>
+													</div>
+													<form>
+														<fieldset>
+															<input type="text" class="span11">
+														</fieldset>
+													</form>
+												</div>
+											</div>
+											<ul id="myTabTrad" class="nav nav-tabs">
+												<li class="active"><a href="#detailed_answer_trad"
+													data-toggle="tab">Bài giải chi tiết</a>
+												</li>
+												<li class=""><a id="tab_question" href="#hint_trad"
+													data-toggle="tab">Gợi ý</a>
+												</li>
+											</ul>
+											<div id="myTabTradContent" class="tab-content">
+												<div class="tab-pane fade active in" id="detailed_answer_trad">
+													<form id="list_detail_answers_trad">
+														<fieldset id="1_trad">
+															<label for="detailed_answer1_trad">Bước 1</label>
+															<textarea id="detailed_answer1_trad"
+																onkeyup="add_more_choice(this,1,1,3)"
+																placeholder="Bài giải bước 1"></textarea>
+														</fieldset>
+													</form>
+												</div>
+												<div class="tab-pane fade" id="hint_trad">
+													<form id="list_hints_trad">
+														<fieldset id="1_trad">
+															<label for="hint1_trad">Bước 1</label>
+															<textarea id="hint1_trad"
+																onkeyup="add_more_choice(this,1,2,3)"
+																placeholder="Gợi ý 1"></textarea>
+														</fieldset>
+													</form>
+												</div>
+											</div>
+										</div>
+										<div class="span6">
+											<div class="page-header" style="margin-bottom: 20px;">
+												<h4>Đáp án</h4>
+											</div>
+											<div id="question_area_preview_trad">												
+											</div>
+											<form class="form-inline" id="list_answers_trad">
+												<fieldset id="1_trad">
+													<label for="choice1_trad">Đáp án đúng</label>
+													<textarea id="choice1_trad"></textarea>
+													<br> <br> <label for="explain1_trad">Chú thích</label>
+													<textarea id="explain1_trad" style="margin-left: 11px;"
+														placeholder="Giải thích"></textarea>
+												</fieldset>
+												<br>
+												<fieldset id="2_trad">
+													<label for="choice2_trad">Đáp án sai</label>
+													<textarea id="choice2_trad"></textarea>
+													<br> <br> <label for="explain2_trad">Chú thích</label>
+													<textarea id="explain2_trad" style="margin-left: 11px;"
+														placeholder="Giải thích"></textarea>
+												</fieldset>
+												<br>
+												<fieldset id="3_trad">
+													<label for="choice3">Đáp án sai</label>
+													<textarea id="choice3_trad"></textarea>
+													<br> <br> <label for="explain3_trad">Chú thích</label>
+													<textarea id="explain3_trad" style="margin-left: 11px;"
+														placeholder="Giải thích"></textarea>
+												</fieldset>
+												<br>
+												<fieldset id="4_trad">
+													<label for="choice4_trad">Đáp án sai</label>
+													<textarea id="choice4_trad"></textarea>
+													<br> <br> <label for="explain4_trad">Chú thích</label>
+													<textarea id="explain4_trad" style="margin-left: 11px;"
+														placeholder="Giải thích"></textarea>
+												</fieldset>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="tab-pane fade" id="short_answer">
+								<div class="span6">
+									<div class="page-header">
+										<h4>Nội dung câu hỏi</h4>
+									</div>
+									<form>
+										<fieldset>
+											<textarea class="editor" id="question_content_short" placeholder="Nội dung câu hỏi"></textarea>
+										</fieldset>
+									</form>
+									<ul id="myTabShort" class="nav nav-tabs">
+										<li class="active"><a href="#detailed_answer_short"
+											data-toggle="tab">Bài giải chi tiết</a></li>
+										<li class=""><a id="tab_question" href="#hint_short"
+											data-toggle="tab">Gợi ý</a></li>
+									</ul>
+									<div id="myTabShortContent" class="tab-content">
+										<div class="tab-pane fade active in" id="detailed_answer_short">
+											<form id="list_detail_answers_short">
+												<fieldset id="1_short">
+													<label for="detailed_answer1_short">Bước 1</label>
+													<textarea id="detailed_answer1_short"
+														onkeyup="add_more_choice(this,1,1,4)"
+														placeholder="Bài giải bước 1"></textarea>
+												</fieldset>
+											</form>
+										</div>
+										<div class="tab-pane fade" id="hint_short">
+											<form id="list_hints_short">
+												<fieldset id="1_short">
+													<label for="hint1_short">Bước 1</label>
+													<textarea id="hint1_short"
+														onkeyup="add_more_choice(this,1,2,4)" placeholder="Gợi ý 1"></textarea>
+												</fieldset>
+											</form>
+										</div>
+									</div>
+								</div>
+								<div class="span6">
+									<div class="page-header" style="margin-bottom: 20px;">
+										<h4>Đáp án</h4>
+									</div>
+									<div id="question_area_preview_short">												
+									</div>
+									<form class="form-inline" id="list_answers_short">
+										<fieldset id="1_short">
+											<label for="choice1_short">Đáp án</label>
+											<textarea id="choice1_short"></textarea>
+										</fieldset>
+									</form>
+								</div>
+							</div>
+							<div class="tab-pane fade" id="cloze">
+								<div class="span6">
+									<div class="page-header">
+										<h4>Nội dung câu hỏi</h4>
+									</div>
+									<form>
+										<fieldset>
+											<textarea class="editor" id="question_content_cloze" placeholder="Nội dung câu hỏi"></textarea>
+										</fieldset>
+									</form>
+									<ul id="myTabCloze" class="nav nav-tabs">
+										<li class="active"><a href="#detailed_answer_cloze"
+											data-toggle="tab">Bài giải chi tiết</a></li>
+										<li class=""><a id="tab_question" href="#hint_cloze"
+											data-toggle="tab">Gợi ý</a></li>
+									</ul>
+									<div id="myTabClozeContent" class="tab-content">
+										<div class="tab-pane fade active in" id="detailed_answer_cloze">
+											<form id="list_detail_answers_cloze">
+												<fieldset id="1_cloze">
+													<label for="detailed_answer1_cloze">Bước 1</label>
+													<textarea id="detailed_answer1_cloze"
+														onkeyup="add_more_choice(this,1,1,5)"
+														placeholder="Bài giải bước 1"></textarea>
+												</fieldset>
+											</form>
+										</div>
+										<div class="tab-pane fade" id="hint_cloze">
+											<form id="list_hints_cloze">
+												<fieldset id="1_cloze">
+													<label for="hint1_cloze">Bước 1</label>
+													<textarea id="hint1_cloze"
+														onkeyup="add_more_choice(this,1,2,5)" placeholder="Gợi ý 1"></textarea>
+												</fieldset>
+											</form>
+										</div>
+									</div>
+								</div>
+								<div class="span6">
+									<div class="page-header">
+										<h4>Đáp án</h4>
+									</div>
+									<div id="question_area_preview_cloze">												
+									</div>
+									<form class="form-inline" id="list_answers_cloze">
+										<fieldset id="1">
+											<label for="choice1_cloze">Đáp án</label>
+											<textarea id="choice1_cloze"></textarea>
+											<br>
+											<br> <label for="explain1_cloze">Chú thích</label>
+											<textarea id="explain1_cloze" style="margin-left: 11px;"
+												placeholder="Giải thích"></textarea>
+										</fieldset>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div> 	
+				</div>
+			</div>
+    	</div>
+    </div>
+    <button type="button" onclick="test()">test</button>
+	<footer id="footer">
+		<div class="footer-container">
+			<div class="row-fluid main-links">
+				<div class="span2">
+					<ul>
+						<li class="heading footer-scroll-cue">About</li>
+						<li><a href="/about">Our Mission</a>
+						</li>
+						<li><a href="/about/blog">Blog</a>
+						</li>
+						<li><a href="/about/the-team">Our Team</a>
+						</li>
+						<li><a href="/about/our-interns">Our Interns</a>
+						</li>
+						<li><a href="/about/our-content-specialists">Our Content
+								Specialists</a>
+						</li>
+						<li><a href="/about/our-supporters">Our Supporters</a>
+						</li>					
+					</ul>
+				</div>
+				<div class="span2">
+					<ul>
+						<li class="heading footer-scroll-cue">Help</li>
+						<li><a href="/reportissue?type=Defect&amp;issue_labels="
+							data-tag="Footer" id="report" class="show-demo-dialog">Report
+								a Problem</a>
+						</li>
+						<li><a href="http://khanacademy.desk.com/">FAQ</a>
+						</li>
+					</ul>
+				</div>
+				<div class="span2">
+					<ul>
+						<li class="heading footer-scroll-cue">Contact Us</li>
+						<li><a href="http://khanacademy.desk.com/">Contact</a>
+						</li>
+						<li><a
+							href="http://khanacademy.desk.com/customer/portal/articles/441307-press-room">Press</a>
+						</li>
+					</ul>
+				</div>
+				<div class="span2">
+					<ul>
+						<li class="heading footer-scroll-cue">Coaching</li>
+						<li><a href="/class_profile">Coach Dashboard</a>
+						</li>
+						<li><a href="/coach-res">Coach Resources</a>
+						</li>
+						<li><a href="/coach-res/case-studies">Case Studies</a>
+						</li>
+						<li><a href="/commoncore">Common Core</a>
+						</li>
+					</ul>
+				</div>
+				<div class="span2">
+					<ul>
+						<li class="heading footer-scroll-cue">More</li>
+						<li><a href="/donate">Donate</a>
+						</li>
+						<li><a href="/contribute">Contribute</a>
+						</li>
+						<li><a href="http://shop.khanacademy.org/">Shop KA</a>
+						</li>
+					</ul>
+				</div>
+				
+				<!-- 
+				<div class="span1">
+					<img class="handtree"
+						src="https://khan-academy.appspot.com/images/khan-logo-vertical-transparent.png">
+				</div>
+				-->
+			</div>
+			<div class="extra-links clearfix">
+				<div class="legal">
+					<span><a href="/about/tos">Terms of Use</a>
+					</span>
+				</div>
+				<div class="legal">
+					<span><a href="/about/privacy-policy">Privacy Policy</a>
+					</span>
+				</div>
+
+				<div class="copyright"
+					title="Version: 0822-d9e68d89657f.369699905479567331">
+					© 2013 Konocy - Bill Academy <br> Except where noted, all rights
+					reserved.
+				</div>
+			</div>
+		</div>
+	</footer>
+	<script src="public/js/jquery.js"></script>
+    <script src="public/js/bootstrap.min.js"></script>
+    <script>
+		$(function() {
+			function initToolbarBootstrapBindings() {
+				var fonts = [ 'Serif', 'Sans', 'Arial', 'Arial Black', 'Courier',
+						'Courier New', 'Comic Sans MS', 'Helvetica', 'Impact',
+						'Lucida Grande', 'Lucida Sans', 'Tahoma', 'Times',
+						'Times New Roman', 'Verdana' ], fontTarget = $(
+						'[title=Font]').siblings('.dropdown-menu');
+				$
+						.each(
+								fonts,
+								function(idx, fontName) {
+									fontTarget
+											.append($('<li><a data-edit="fontName ' + fontName +'" style="font-family:\''+ fontName +'\'">'
+													+ fontName + '</a></li>'));
+								});
+				$('a[title]').tooltip({
+					container : 'body'
+				});
+				
+				$('.dropdown-menu input').click(function() {
+					return false;
+				}).change(
+						function() {
+							$(this).parent('.dropdown-menu').siblings(
+									'.dropdown-toggle').dropdown('toggle');
+						}).keydown('esc', function() {
+					this.value = '';
+					$(this).change();
+				});
+				
+				$('[data-role=magic-overlay]').each(
+						function() {
+							var overlay = $(this), target = $(overlay
+									.data('target'));
+							overlay.css('opacity', 0).css('position', 'absolute')
+									.offset(target.offset()).width(
+											target.outerWidth()).height(
+											target.outerHeight());
+						});
+				/*
+				if ("onwebkitspeechchange" in document.createElement("input")) {
+					var editorOffset = $('#editor').offset();
+					$('#voiceBtn').css('position', 'absolute').offset({
+						top : editorOffset.top,
+						left : editorOffset.left + $('#editor').innerWidth() - 35
+					});
+				} else {
+					$('#voiceBtn').hide();
+				}
+				*/
+			}
+			;
+			function showErrorAlert(reason, detail) {
+				var msg = '';
+				if (reason === 'unsupported-file-type') {
+					msg = "Unsupported format " + detail;
+				} else {
+					console.log("error uploading file", reason, detail);
+				}
+				$(
+						'<div class="alert"> <button type="button" class="close" data-dismiss="alert">&times;</button>'
+								+ '<strong>File upload error</strong> '
+								+ msg
+								+ ' </div>').prependTo('#alerts');
+			}
+			;
+			initToolbarBootstrapBindings();
+			$('.editor').wysiwyg({
+				fileUploadError : showErrorAlert
+			});
+			window.prettyPrint && prettyPrint();
+		});
+		/*
+		var newInput = document.createElement("input");
+		newInput.type = "text";
+		var boxID = document.getElementById("editor");
+		boxID.appendChild(newInput);
+		function test() {
+			var text = document.getElementById("editor").innerHTML;
+			alert(text);
+		}*/
+	</script>   
+	<script src="public/js/jquery.hotkeys.js"></script>
+	<script src="public/js/prettify.js"></script> 	
+    <script src="public/js/bootstrap-wysiwyg.js"></script>
+  </body>
+</html>

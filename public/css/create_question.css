@@ -1,0 +1,60 @@
+@CHARSET "UTF-8";
+.page-header{
+padding-bottom:0;
+margin: 5px 0 20px;
+}
+.span6 textarea{
+resize:none;
+}
+.span6 > .form-inline textarea{
+width:65%;
+height:20px;
+margin-bottom:10px;
+}
+.span6 > .form-inline textarea.explain_0105{
+width:47%;
+}
+textarea.explain_0104,textarea.explain_0105{
+margin-left:11px;
+}
+textarea.explain_0101{
+margin-left:12px;
+}
+.span6 .toggle.btn{
+margin-bottom:10px;
+}
+h4{
+margin-top:0;
+}
+form{
+margin:0;
+}
+select{
+margin-bottom:7px;
+width:auto;
+float: right;
+margin-right: 10px;
+}
+#suffle{
+width:167px;
+float:right;
+margin-right:10px;
+}
+.btn-toolbar{
+margin:0;
+}
+.nav {
+margin-bottom: 5px;
+margin-left: 0;
+list-style: none;
+}
+ul, ol {
+padding: 0;
+margin:0;
+}
+.row-fluid .span6 {
+margin-left: 2.564102564102564%;
+}
+textarea.hint,textarea.detailed_answer{
+width:97%;
+}

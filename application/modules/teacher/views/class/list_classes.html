@@ -1,0 +1,124 @@
+<script>
+	function create_class() {
+		var ajax = new XMLHttpRequest();
+		var name = document.getElementById('name').value;
+		var subject = document.getElementById('subject').value;
+		var grade = document.getElementById('grade').value;
+		var goal = document.getElementById('goal').value;
+		var expected_finish = document.getElementById('expected_finish').value;
+		var str = "name=" + name + "&subject=" + subject + "&grade=" + grade + "&goal=" + goal + "&expected_finish=" + expected_finish;		
+		ajax.open("POST", "<?php echo base_url(); ?>teacher/classes/create_class", true);
+		ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");		
+		ajax.send(str);
+		//alert(str);
+		ajax.onreadystatechange = function() {
+			if (ajax.readyState == 4) {
+				if(ajax.responseText.trim() === "Success"){
+					document.getElementById('form_create').reset();
+					//document.getElementById('form_message').innerHTML = ajax.responseText;
+					//alert(ajax.responseText);
+					document.getElementById('alert').style.display = "block";
+					$('.alert').addClass('fade');
+					$('.alert').addClass('in');
+				}
+				else{
+					document.getElementById('error').style.display = "block";
+					$('.alert').addClass('fade in');
+					//$('.alert').addClass('in');
+				}
+			}
+		}
+	}
+	$(function() {
+	    $( "#expected_finish" ).datepicker();
+	 });
+</script>
+<div class="span12" style="margin-left: 2.127659574468085%;">
+	<ul id="myTab" class="nav nav-tabs" style="margin-top: 12px;">
+		<li class="active"><a href="#list" data-toggle="tab">Danh sách lớp học</a>
+		</li>
+		<li class=""><a id="tab_question" href="#create" data-toggle="tab">Tạo lớp mới</a>
+		</li>
+	</ul>
+	<div id="myTabContent" class="tab-content">
+		<div class="tab-pane fade active in" id="list">
+			<ul class="thumbnails">
+				<?php
+					if(isset($list_classes) && $list_classes!=false){
+						foreach($list_classes as $row){				
+				?>
+			  <li class="span4">
+			    <div class="thumbnail">	      
+			      <div class="caption">
+			        <div class="page-header">
+						<h4>Thông tin lớp <?php echo $row['class_name']; ?></h4>
+					</div>
+			        <p>Mục tiêu: <?php echo $row['goal']; ?></p>
+			        <p>Số lượng học sinh: <?php echo $row['class_name']; ?></p>
+			        <p>Môn học: <?php echo $row['subject_name']; ?></p>
+			        <p>Lớp: <?php echo $row['grade_name']; ?></p>
+			        <p><a href="#" class="btn btn-primary">Action</a> <a href="#" class="btn">Action</a></p>
+			      </div>
+			    </div>
+			  </li>
+			  <?php
+			  			}
+					}
+	  		  ?>	  
+			</ul>
+		</div>
+		<div class="tab-pane fade" id="create">
+			<div class="alert" id="alert" style="display: none;">
+	            <button type="button" class="close" data-dismiss="alert">×</button>
+	            <strong>Bạn đã tạo lớp thành công!</strong>
+          	</div>
+          	<div class="alert alert-error" id="error" style="display: none;">
+	            <button type="button" class="close" data-dismiss="alert">×</button>
+	            <strong>Có lỗi khi tạo lớp!</strong>
+          	</div>
+			<form id="form_create">
+			  <fieldset>
+			    <legend>Tạo lớp mới</legend>
+			    <div class="control-group">
+				  <label class="control-label" for="name">Tên lớp</label>
+				  <div class="controls">
+				    <input type="text" id="name">
+				  </div>
+				</div>
+				<div class="control-group">
+				  <label class="control-label" for="name">Mục tiêu</label>
+				  <div class="controls">
+				    <input type="text" id="goal">
+				  </div>
+				</div>
+				<div class="control-group" >
+				  <label class="control-label" for="name">Ngày kết thúc dự kiến</label>
+				  <div class="controls">
+				    <input type="text" id="expected_finish">
+				  </div>
+				</div>
+			    <label for="subject">Môn học</label>
+			    <select id="subject">
+			    	<?php
+			    		foreach($list_subjects as $row){
+			    	?>
+			    	<option value="<?php echo $row['id'] ?>"><?php echo $row['subject_name'] ?></option>
+			    	<?php
+			    		}
+			    	?>
+			    </select>
+			    <select id="grade">
+			    	<?php
+			    		foreach($list_grades as $row){
+			    	?>
+			    	<option value="<?php echo $row['id'] ?>"><?php echo $row['name'] ?></option>
+			    	<?php
+			    		}
+			    	?>
+			    </select><br><br>
+			    <button type="button" class="btn" onclick="create_class()">Tạo lớp</button>
+			   	</fieldset>		    			    
+			</form>
+		</div>
+	</div>
+</div>

@@ -1,10 +1,4 @@
-<div class="span12">
-	<script type="text/javascript">
-		var AMTcgiloc = "http://www.imathas.com/cgi-bin/mimetex.cgi";  //change me
-		$(document).ready(function(){
-		    $('textarea').autosize();   
-		});
-	</script>
+<div class="span12">		
 	<script>
 	/*
 	jQuery(".tm-input").tagsManager({
@@ -215,8 +209,8 @@
 						<div style="margin-left:2px;" class="toggle off btn btn-primary disabled button_show_right_answer button_show_right_answer_<?php echo $type4  ?>" data-toggle="">
 							<input id="show_right_<?php echo $type4  ?>" type="checkbox">
 							<div class="toggle-group">
-								<label class="toggle-on btn btn-primary">Hiển thị</label> 
-								<label class="toggle-off btn btn-info active">Ẩn</label> 
+								<label class="toggle-on btn btn-primary">Hiện</label> 
+								<label class="toggle-off btn active">Ẩn</label> 
 								<span class="toggle-handle btn"></span>
 							</div>
 						</div>
@@ -392,8 +386,8 @@
 						<div style="margin-left:2px;" class="toggle off btn btn-primary disabled button_show_right_answer button_show_right_answer_<?php echo $type5  ?>" data-toggle="">
 							<input id="show_right_<?php echo $type5  ?>" type="checkbox">
 							<div class="toggle-group">
-								<label class="toggle-on btn btn-primary">Hiển thị</label> 
-								<label class="toggle-off btn btn-info active">Ẩn</label> 
+								<label class="toggle-on btn btn-primary">Hiện</label> 
+								<label class="toggle-off btn active">Ẩn</label> 
 								<span class="toggle-handle btn"></span>
 							</div>
 						</div>
@@ -640,3 +634,38 @@
 		</div>
 	</div>
 </div>
+<!-- MathJax -->
+<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+   		tex2jax: {inlineMath: [["$","$"]]},
+   		displayAlign: "center",
+   		displayIndent: "0.1em",
+		"HTML-CSS": {
+			scale: 88,
+			minScaleAdjust: 88,
+			availableFonts: ["TeX"]
+  		},
+ 		MMLorHTML: {prefer: "HTML"}
+  	});
+	MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
+	  var VARIANT = MathJax.OutputJax["HTML-CSS"].FONTDATA.VARIANT;
+	  VARIANT["normal"].fonts.unshift("MathJax_Main");
+	  VARIANT["bold"].fonts.unshift("MathJax_Main");
+	  VARIANT["italic"].fonts.unshift("MathJax_Main");
+	  VARIANT["-tex-mathit"].fonts.unshift("MathJax_Main-italic");
+	});
+	MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
+	  var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;
+	  VARIANT["normal"].fonts.unshift("MathJax_Main");
+	  VARIANT["bold"].fonts.unshift("MathJax_Main");
+	  VARIANT["italic"].fonts.unshift("MathJax_Main");
+	  VARIANT["-tex-mathit"].fonts.unshift("MathJax_Main-italic");
+	});
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML.js"></script>
+<script type="text/javascript">
+	var AMTcgiloc = "http://www.imathas.com/cgi-bin/mimetex.cgi";  //change me
+	$(document).ready(function(){
+	    $('textarea').autosize();   
+	});
+</script>

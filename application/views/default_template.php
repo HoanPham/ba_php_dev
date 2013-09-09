@@ -5,20 +5,7 @@
 	<?php echo $_meta; ?>
 	<?php echo $_styles; ?>
 	<?php echo $_scripts; ?>
-	<?php echo $_title; ?>	
-	<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML.js"></script>
-	<!-- MathJax -->
-	<script type="text/x-mathjax-config">
-		MathJax.Hub.Config({
-   			tex2jax: {inlineMath: [["$","$"]]},
-   			displayAlign: "center",
-   			displayIndent: "0.1em",
-			"HTML-CSS": {
-    			preferredFont: "STIX",
-				minScaleAdjust: 80
-  			}
-  		});
-	</script>
+	<?php echo $_title; ?>		
 </head>
 <body>
 	<div class="navbar navbar-inverse navbar-fixed-top">

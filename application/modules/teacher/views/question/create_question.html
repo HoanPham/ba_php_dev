@@ -1,34 +1,4 @@
 <div class="span12">		
-	<script>
-	/*
-	jQuery(".tm-input").tagsManager({
-        prefilled: ["Pisa", "Rome"],
-        CapitalizeFirstLetter: true,
-        preventSubmitOnEnter: true,
-        isClearInputOnEsc: true,
-        typeahead: true,
-        typeaheadAjaxMethod: "GET",
-        typeaheadAjaxSource: null,
-        typeaheadSource: ["Pisa", "Rome", "Milan", "Florence", "New York", "Paris", "Berlin", "London", "Madrid"],
-        typeaheadAjaxPolling: false,
-        typeaheadDelegate: {},
-        AjaxPush: null,
-        AjaxPushAllTags: null,
-        AjaxPushParameters: null,
-        delimiters: [9, 13, 44],
-        backspace: [8],
-        blinkBGColor_1: '#FFFF9C',
-        blinkBGColor_2: '#CDE69C',
-        hiddenTagListName: 'hiddenTagListA',
-        hiddenTagListId: null,
-        deleteTagsOnBackspace: true,
-        tagsContainer: null,
-        tagCloseIcon: '×',
-        tagClass: '',
-        validator: null,
-        onlyTagList: false
-    });*/
-	</script>
 	<ul id="myTab" class="nav nav-tabs" style="margin-bottom: 15px;">
 		<li class="active"><a href="#multiple_choice" data-toggle="tab">Trắc
 				nghiệm</a></li>
@@ -130,11 +100,19 @@
 						<div class="page-header" style="margin-bottom: 20px;">
 							<h4>Đáp án</h4>
 						</div>
-						<div id="question_preview_area_<?php echo $type4  ?>"></div>
+						<div id="preview_area">
+							<div id="preview_question_<?php echo $type4  ?>">								
+							</div>
+							<div id="preview_choices_<?php echo $type4  ?>">
+								<div id="choice1_<?php echo $type4  ?>_width"></div>
+								<div id="choice2_<?php echo $type4  ?>_width"></div>
+								<div id="choice3_<?php echo $type4  ?>_width"></div>								
+							</div>
+						</div>
 						<form class="form-inline" id="list_answers_<?php echo $type4  ?>">
 							<fieldset id="1_<?php echo $type4  ?>">
 								<label for="choice1_<?php echo $type4  ?>">Lựa chọn 1</label>
-								<textarea id="choice1_<?php echo $type4  ?>" class="choice_<?php echo $type4  ?>"></textarea>
+								<textarea id="choice1_<?php echo $type4  ?>" class="choice_<?php echo $type4  ?> choice"></textarea>
 								<div class="no_right_answer toggle btn btn-primary" data-toggle="toggle">
 									<input type="checkbox" id="choice1_right_<?php echo $type4  ?>"
 										class="choice_right_<?php echo $type4  ?>">
@@ -150,7 +128,7 @@
 							</fieldset>
 							<fieldset id="2_<?php echo $type4  ?>">
 								<label for="choice2_<?php echo $type4  ?>">Lựa chọn 2</label>
-								<textarea id="choice2_<?php echo $type4  ?>" class="choice_<?php echo $type4  ?>"></textarea>
+								<textarea id="choice2_<?php echo $type4  ?>" class="choice_<?php echo $type4  ?> choice"></textarea>
 								<div class="no_right_answer toggle btn btn-primary off" data-toggle="toggle">
 									<input type="checkbox" id="choice2_right_<?php echo $type4  ?>"
 										class="choice_right_<?php echo $type4  ?>">
@@ -166,7 +144,7 @@
 							</fieldset>
 							<fieldset id="3_<?php echo $type4  ?>">
 								<label for="choice3_<?php echo $type4  ?>">Lựa chọn 3</label>
-								<textarea id="choice3_<?php echo $type4  ?>" class="choice_<?php echo $type4  ?>"></textarea>
+								<textarea id="choice3_<?php echo $type4  ?>" class="choice_<?php echo $type4  ?> choice"></textarea>
 								<div class="no_right_answer toggle btn btn-primary off" data-toggle="toggle">
 									<input type="checkbox" id="choice3_right_<?php echo $type4  ?>"
 										class="choice_right_<?php echo $type4  ?>">
@@ -182,7 +160,7 @@
 							</fieldset>
 							<fieldset id="4_<?php echo $type4  ?>">
 								<label for="choice4_<?php echo $type4  ?>">Lựa chọn 4</label>
-								<textarea id="choice4_<?php echo $type4  ?>" class="choice_<?php echo $type4  ?>"
+								<textarea id="choice4_<?php echo $type4  ?>" class="choice_<?php echo $type4  ?> choice"
 									onkeyup="add_more_choice(this,4,3,'<?php echo $type4  ?>')"></textarea>
 								<div class="no_right_answer toggle btn btn-primary off" data-toggle="toggle">
 									<input type="checkbox" id="choice4_right_<?php echo $type4  ?>"
@@ -271,11 +249,19 @@
 						<div class="page-header" style="margin-bottom: 20px;">
 							<h4>Đáp án</h4>
 						</div>
-						<div id="question_preview_area_<?php echo $type5  ?>"></div>
+						<div id="preview_area">
+							<div id="preview_question_<?php echo $type5  ?>">								
+							</div>
+							<div id="preview_choices_<?php echo $type5  ?>">
+								<div id="choice1_<?php echo $type5  ?>_width"></div>
+								<div id="choice2_<?php echo $type5  ?>_width"></div>
+								<div id="choice3_<?php echo $type5  ?>_width"></div>								
+							</div>
+						</div>
 						<form class="form-inline" id="list_answers_<?php echo $type5  ?>">
 							<fieldset id="1_<?php echo $type5  ?>">
 								<label for="choice1_<?php echo $type5  ?>">Lựa chọn 1</label>
-								<textarea id="choice1_<?php echo $type5  ?>" class="choice_<?php echo $type5  ?>"></textarea>
+								<textarea id="choice1_<?php echo $type5  ?>" class="choice_<?php echo $type5  ?> choice"></textarea>
 								<div class="no_right_answer toggle btn btn-primary" data-toggle="toggle">
 									<input type="checkbox" id="choice1_right_<?php echo $type5  ?>"
 										class="choice_right_<?php echo $type5  ?>">
@@ -300,7 +286,7 @@
 							</fieldset>
 							<fieldset id="2_<?php echo $type5  ?>">
 								<label for="choice2_<?php echo $type5  ?>">Lựa chọn 2</label>
-								<textarea id="choice2_<?php echo $type5  ?>" class="choice_<?php echo $type5  ?>"></textarea>
+								<textarea id="choice2_<?php echo $type5  ?>" class="choice_<?php echo $type5  ?> choice"></textarea>
 								<div class="no_right_answer toggle btn btn-primary off" data-toggle="toggle">
 									<input type="checkbox" id="choice2_right_<?php echo $type5  ?>"
 										class="choice_right_<?php echo $type5  ?>">
@@ -325,7 +311,7 @@
 							</fieldset>
 							<fieldset id="3_<?php echo $type5  ?>">
 								<label for="choice3_<?php echo $type5  ?>">Lựa chọn 3</label>
-								<textarea id="choice3_<?php echo $type5  ?>" class="choice_<?php echo $type5  ?>"></textarea>
+								<textarea id="choice3_<?php echo $type5  ?>" class="choice_<?php echo $type5  ?> choice"></textarea>
 								<div class="no_right_answer toggle btn btn-primary off" data-toggle="toggle">
 									<input type="checkbox" id="choice3_right_<?php echo $type5  ?>"
 										class="choice_right_<?php echo $type5  ?>">
@@ -350,7 +336,7 @@
 							</fieldset>
 							<fieldset id="4_<?php echo $type5  ?>">
 								<label for="choice4_<?php echo $type5  ?>">Lựa chọn 4</label>
-								<textarea id="choice4_<?php echo $type5  ?>" class="choice_<?php echo $type5  ?>"
+								<textarea id="choice4_<?php echo $type5  ?>" class="choice_<?php echo $type5  ?> choice"
 									onkeyup="add_more_choice(this,4,3,'<?php echo $type5  ?>')"></textarea>
 								<div class="no_right_answer toggle btn btn-primary off" data-toggle="toggle">
 									<input type="checkbox" id="choice4_right_<?php echo $type5  ?>"
@@ -447,11 +433,19 @@
 						<div class="page-header" style="margin-bottom: 20px;">
 							<h4>Đáp án</h4>
 						</div>
-						<div id="question_preview_area_<?php echo $type1  ?>"></div>
+						<div id="preview_area">
+							<div id="preview_question_<?php echo $type1  ?>">								
+							</div>
+							<div id="preview_choices_<?php echo $type1  ?>">
+								<div id="choice1_<?php echo $type1  ?>_width"></div>
+								<div id="choice2_<?php echo $type1  ?>_width"></div>
+								<div id="choice3_<?php echo $type1  ?>_width"></div>								
+							</div>
+						</div>
 						<form class="form-inline" id="list_answers_<?php echo $type1  ?>">
 							<fieldset id="1_<?php echo $type1  ?>">
 								<label for="choice1_<?php echo $type1  ?>">Lựa chọn A</label>
-								<textarea id="choice1_<?php echo $type1  ?>" class="choice_<?php echo $type1  ?>"></textarea>
+								<textarea id="choice1_<?php echo $type1  ?>" class="choice_<?php echo $type1  ?> choice"></textarea>
 								<div class="multichoice_radio toggle btn btn-primary" data-toggle="toggle">
 									<input type="checkbox" id="choice1_right_<?php echo $type1  ?>"
 										class="choice_right_<?php echo $type1  ?>">
@@ -467,7 +461,7 @@
 							</fieldset>
 							<fieldset id="2_<?php echo $type1  ?>">
 								<label for="choice2_<?php echo $type1  ?>">Lựa chọn B</label>
-								<textarea id="choice2_<?php echo $type1  ?>" class="choice_<?php echo $type1  ?>"></textarea>
+								<textarea id="choice2_<?php echo $type1  ?>" class="choice_<?php echo $type1  ?> choice"></textarea>
 								<div class="multichoice_radio toggle btn btn-primary off" data-toggle="toggle">
 									<input type="checkbox" id="choice2_right_<?php echo $type1  ?>"
 										class="choice_right_<?php echo $type1  ?>">
@@ -484,7 +478,7 @@
 							</fieldset>
 							<fieldset id="3_<?php echo $type1  ?>">
 								<label for="choice3">Lựa chọn C</label>
-								<textarea id="choice3_<?php echo $type1  ?>" class="choice_<?php echo $type1  ?>"></textarea>
+								<textarea id="choice3_<?php echo $type1  ?>" class="choice_<?php echo $type1  ?> choice"></textarea>
 								<div class="multichoice_radio toggle btn btn-primary off" data-toggle="toggle">
 									<input type="checkbox" id="choice3_right_<?php echo $type1  ?>"
 										class="choice_right_<?php echo $type1  ?>">
@@ -499,7 +493,7 @@
 							</fieldset>
 							<fieldset id="4_<?php echo $type1  ?>">
 								<label for="choice4_<?php echo $type1  ?>">Lựa chọn D</label>
-								<textarea id="choice4_<?php echo $type1  ?>" class="choice_<?php echo $type1  ?>"></textarea>
+								<textarea id="choice4_<?php echo $type1  ?>" class="choice_<?php echo $type1  ?> choice"></textarea>
 								<div class="multichoice_radio toggle btn btn-primary off" data-toggle="toggle">
 									<input type="checkbox" id="choice4_right_<?php echo $type1  ?>"
 										class="choice_right_<?php echo $type1  ?>">
@@ -562,11 +556,19 @@
 				<div class="page-header" style="margin-bottom: 20px;">
 					<h4>Đáp án</h4>
 				</div>
-				<div id="question_area_preview_<?php echo $type6  ?>"></div>
+				<div id="preview_area">
+					<div id="preview_question_<?php echo $type6  ?>">								
+					</div>
+					<div id="preview_choices_<?php echo $type6  ?>">
+						<div id="choice1_<?php echo $type6  ?>_width"></div>
+						<div id="choice2_<?php echo $type6  ?>_width"></div>
+						<div id="choice3_<?php echo $type6  ?>_width"></div>								
+					</div>
+				</div>
 				<form class="form-inline" id="list_answers_<?php echo $type6  ?>">
 					<fieldset id="1_<?php echo $type6  ?>">
 						<label for="choice1_<?php echo $type6  ?>">Đáp án</label>
-						<textarea id="choice1_<?php echo $type6  ?>" class="choice_<?php echo $type6  ?>"></textarea>
+						<textarea id="choice1_<?php echo $type6  ?>" class="choice_<?php echo $type6  ?> choice"></textarea>
 					</fieldset>
 				</form>
 				<button class="btn btn-large btn-primary"
@@ -617,11 +619,19 @@
 				<div class="page-header">
 					<h4>Đáp án</h4>
 				</div>
-				<div id="question_area_preview_<?php echo $type7 ?>"></div>
+				<div id="preview_area">
+					<div id="preview_question_<?php echo $type7  ?>">								
+					</div>
+					<div id="preview_choices_<?php echo $type7  ?>">
+						<div id="choice1_<?php echo $type7  ?>_width"></div>
+						<div id="choice2_<?php echo $type7  ?>_width"></div>
+						<div id="choice3_<?php echo $type7  ?>_width"></div>								
+					</div>
+				</div>
 				<form class="form-inline" id="list_answers_<?php echo $type7 ?>">
 					<fieldset id="1">
 						<label for="choice1_<?php echo $type7 ?>">Đáp án</label>
-						<textarea id="choice1_<?php echo $type7 ?>" class="choice_<?php echo $type7 ?>"></textarea>
+						<textarea id="choice1_<?php echo $type7 ?>" class="choice_<?php echo $type7 ?> choice"></textarea>
 						<br> <br> <label for="explain1_<?php echo $type7 ?>">Giải thích</label>
 						<textarea id="explain1_<?php echo $type7 ?>" style="margin-left: 11px;"
 							placeholder="Giải thích"></textarea>
@@ -668,5 +678,5 @@
 	var AMTcgiloc = "http://www.imathas.com/cgi-bin/mimetex.cgi";  //change me
 	$(document).ready(function(){
 	    $('textarea').autosize();   
-	});
+	});	
 </script>

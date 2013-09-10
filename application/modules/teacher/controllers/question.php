@@ -16,6 +16,7 @@
         
         /* Add BA js */
         $this->template->add_js('public/js/multichoice_constraints.js');
+        $this->template->add_js('public/js/preview.js');
         $this->template->add_js('public/js/auto_add_div.js');        
         $this->template->add_js('public/js/ba_form_submit.js');
         //$this->template->add_js('public/js/ba_validation.js');

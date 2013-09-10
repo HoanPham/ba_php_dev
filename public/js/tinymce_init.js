@@ -20,8 +20,8 @@ tinyMCE.init({
 	        var id_array = textarea_id.split("_");
 	        //alert(textarea_id);
 	        var question_content = tinyMCE.get(textarea_id).getContent();	        
-	        $('#question_preview_area_'+id_array[2]).html(question_content);
-	        MathJax.Hub.Queue(["Typeset",MathJax.Hub,"question_preview_area_"+id_array[2]]);
+	        $('#preview_question_'+id_array[2]).html(question_content);
+	        MathJax.Hub.Queue(["Typeset",MathJax.Hub,"preview_question_"+id_array[2]]);
 	        //document.getElementByClass('question_content_trad').innerHTML = question_content;
 	    });
 	},

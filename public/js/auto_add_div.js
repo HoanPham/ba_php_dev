@@ -60,7 +60,7 @@ function add_more_choice(val, id, object, question_type) {
 				+ "\")' placeholder='Gợi ý "
 				+ choices + "'></textarea>";
 		break;
-	case 3:
+	case 3:		
 		var object_id = "choice";
 		var form_id = "list_answers";
 		newFieldset.setAttribute('id', choices + question_type);
@@ -79,7 +79,7 @@ function add_more_choice(val, id, object, question_type) {
 					+ question_type
 					+ "' class='choice"
 					+ question_type
-					+"'></textarea> <div style='width:40px;' class='no_right_answer toggle btn btn-primary off' data-toggle='toggle'><input question_type='checkbox' id='"+object_id+choices+"_right"+question_type+"'class='choice_right"+question_type+"'><div class='toggle-group'><label class='toggle-on btn btn-primary'>Đúng</label> <label class='toggle-off btn btn-success active'>Sai</label> <span class='toggle-handle btn'></span></div></div> <br> <label for='explain"+choices+question_type+"'>Giải thích</label> <textarea id='explain"+choices+question_type+"' class='explain"+question_type+"' style='margin-left:11px;' placeholder='Giải thích'></textarea>";
+					+" choice'></textarea> <div style='width:40px;' class='no_right_answer toggle btn btn-primary off' data-toggle='toggle'><input question_type='checkbox' id='"+object_id+choices+"_right"+question_type+"'class='choice_right"+question_type+"'><div class='toggle-group'><label class='toggle-on btn btn-primary'>Đúng</label> <label class='toggle-off btn btn-success active'>Sai</label> <span class='toggle-handle btn'></span></div></div> <br> <label for='explain"+choices+question_type+"'>Giải thích</label> <textarea id='explain"+choices+question_type+"' class='explain"+question_type+"' style='margin-left:11px;' placeholder='Giải thích'></textarea>";
 		else
 			newFieldset.innerHTML = "<label for='"+object_id+choices+question_type+"'>Lựa chọn "
 					+ choices
@@ -95,7 +95,7 @@ function add_more_choice(val, id, object, question_type) {
 					+ question_type
 					+ "' class='choice"
 					+ question_type
-					+ "'></textarea> <div style='width:40px;' class='no_right_answer toggle btn btn-primary off' data-toggle='toggle'><input question_type='checkbox' id='"+object_id+choices+"_right"+question_type+"'class='choice_right"+question_type+"'><div class='toggle-group'><label class='toggle-on btn btn-primary'>Đúng</label> <label class='toggle-off btn btn-success active'>Sai</label> <span class='toggle-handle btn'></span></div></div> <br> <div style='display:inline'><label for='explain"+choices+question_type+"'>Giải thích</label> <textarea id='explain"+choices+question_type+"' class='explain"+question_type+"' style='margin-left:11px;' placeholder='Giải thích'></textarea><label for='point1'>Được</label><select id='point"+choices+"' class='span3 point'><option value='0.25'>0.25</option><option value='0.75'>0.75</option><option value='1'>1</option></select><div>";
+					+ " choice'></textarea> <div style='width:40px;' class='no_right_answer toggle btn btn-primary off' data-toggle='toggle'><input question_type='checkbox' id='"+object_id+choices+"_right"+question_type+"'class='choice_right"+question_type+"'><div class='toggle-group'><label class='toggle-on btn btn-primary'>Đúng</label> <label class='toggle-off btn btn-success active'>Sai</label> <span class='toggle-handle btn'></span></div></div> <br> <div style='display:inline'><label for='explain"+choices+question_type+"'>Giải thích</label> <textarea id='explain"+choices+question_type+"' class='explain"+question_type+"' style='margin-left:11px;' placeholder='Giải thích'></textarea><label for='point1'>Được</label><select id='point"+choices+"' class='span3 point'><option value='0.25'>0.25</option><option value='0.75'>0.75</option><option value='1'>1</option></select><div>";
 		break;
 	}
 	if (len != 0 && document.getElementById(object_id + choices + question_type) == null) {
@@ -114,8 +114,23 @@ function add_more_choice(val, id, object, question_type) {
 				$(".button_show_right_answer_"+array[2]).addClass('disabled off');
 				$(".button_show_right_answer_"+array[2]).removeAttr('data-toggle');
 				$(".right_answer_input_"+array[2]).css({"display":"none"});
-			}
+			}									
+		});
+		$('textarea.choice').focusin(function(){
+			var array = $(this).attr('id').split("_");
+		    var order = array[0].substr(6,1);
+		    if(parseInt(order)>3){
+		    	if($("#choice"+order+"_"+array[1]+"_width").length==0){
+		    		$('#preview_choices_'+array[1]).append("<div id=\"choice"+order+"_"+array[1]+"_width\"></div>");
+		    	}
+		    }		
 		}); 
+		$('textarea.choice').keyup(function(){  		
+		    var array = $(this).attr('id').split("_");
+		    var order = array[0].substr(6,1); 
+		    $("#choice"+order+"_"+array[1]+"_width").html($(this).val());
+		    MathJax.Hub.Queue(["Typeset",MathJax.Hub,"choice"+order+"_"+array[1]+"_width"]);
+		});
 	}
 	if (len == 0
 			&& document.getElementById(object_id + choices + question_type)

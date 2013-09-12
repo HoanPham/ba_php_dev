@@ -1,0 +1,149 @@
+<div class="tab-pane fade" id="<?php echo $type4  ?>">
+	<div class="span6">
+		<div class="page-header">
+			<h4>Nội dung câu hỏi</h4>
+		</div>
+		<form>
+			<fieldset>
+				<textarea id="question_content_<?php echo $type4  ?>" class="editor"
+					placeholder="Nội dung câu hỏi"></textarea>
+			</fieldset>
+		</form>
+		<?php echo $tag_area ?>
+		<ul id="myTabFullPoint" class="nav nav-tabs">
+			<li class="active"><a href="#detailed_answer_<?php echo $type4  ?>"
+				data-toggle="tab">Bài giải chi tiết</a></li>
+			<li class=""><a id="tab_question" href="#hint_<?php echo $type4  ?>"
+				data-toggle="tab">Gợi ý</a></li>
+		</ul>
+		<div id="myTabFullPointContent" class="tab-content">
+			<div class="tab-pane fade active in"
+				id="detailed_answer_<?php echo $type4  ?>">
+				<form id="list_detail_answers_<?php echo $type4  ?>">
+					<fieldset id="1_<?php echo $type4  ?>">
+						<textarea id="detailed_answer1_<?php echo $type4  ?>"
+							class="detailed_answer detailed_answer_<?php echo $type4  ?>"
+							onkeyup="add_more_choice(this,1,1,'<?php echo $type4  ?>')"
+							placeholder="Bước 1"></textarea>
+					</fieldset>
+				</form>
+			</div>
+			<div class="tab-pane fade" id="hint_<?php echo $type4  ?>">
+				<form id="list_hints_<?php echo $type4  ?>">
+					<fieldset id="1_<?php echo $type4  ?>">
+						<textarea id="hint1_<?php echo $type4  ?>" class="hint hint_<?php echo $type4  ?>"
+							onkeyup="add_more_choice(this,1,2,'<?php echo $type4  ?>')" placeholder="Gợi ý 1"></textarea>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="span6">
+		<div class="page-header" style="margin-bottom: 20px;">
+			<h4>Đáp án</h4>
+		</div>
+		<div id="preview_area">
+			<div id="preview_question_<?php echo $type4  ?>">								
+			</div>
+			<div id="preview_choices_<?php echo $type4  ?>">
+				<div id="choice1_<?php echo $type4  ?>_width"></div>
+				<div id="choice2_<?php echo $type4  ?>_width"></div>
+				<div id="choice3_<?php echo $type4  ?>_width"></div>								
+			</div>
+		</div>
+		<form class="form-inline" id="list_answers_<?php echo $type4  ?>">
+			<fieldset id="1_<?php echo $type4  ?>">
+				<label for="choice1_<?php echo $type4  ?>">Lựa chọn 1</label>
+				<textarea id="choice1_<?php echo $type4  ?>" class="choice_<?php echo $type4  ?> choice"></textarea>
+				<div class="no_right_answer toggle btn btn-primary" data-toggle="toggle">
+					<input type="checkbox" id="choice1_right_<?php echo $type4  ?>"
+						class="choice_right_<?php echo $type4  ?>">
+					<div class="toggle-group">
+						<label class="toggle-on btn btn-primary">Đúng</label> <label
+							class="toggle-off btn btn-success active">Sai</label> <span
+							class="toggle-handle btn"></span>
+					</div>
+				</div>
+				<br> <label for="explain1_<?php echo $type4  ?>">Giải thích</label>
+				<textarea id="explain1_<?php echo $type4  ?>" class="explain_<?php echo $type4  ?>"
+					placeholder="Giải thích"></textarea>
+			</fieldset>
+			<fieldset id="2_<?php echo $type4  ?>">
+				<label for="choice2_<?php echo $type4  ?>">Lựa chọn 2</label>
+				<textarea id="choice2_<?php echo $type4  ?>" class="choice_<?php echo $type4  ?> choice"></textarea>
+				<div class="no_right_answer toggle btn btn-primary off" data-toggle="toggle">
+					<input type="checkbox" id="choice2_right_<?php echo $type4  ?>"
+						class="choice_right_<?php echo $type4  ?>">
+					<div class="toggle-group">
+						<label class="toggle-on btn btn-primary">Đúng</label> <label
+							class="toggle-off btn btn-success active">Sai</label> <span
+							class="toggle-handle btn"></span>
+					</div>
+				</div>
+				<br> <label for="explain2_<?php echo $type4  ?>">Giải thích</label>
+				<textarea id="explain2_<?php echo $type4  ?>" class="explain_<?php echo $type4  ?>"
+					placeholder="Giải thích"></textarea>
+			</fieldset>
+			<fieldset id="3_<?php echo $type4  ?>">
+				<label for="choice3_<?php echo $type4  ?>">Lựa chọn 3</label>
+				<textarea id="choice3_<?php echo $type4  ?>" class="choice_<?php echo $type4  ?> choice"></textarea>
+				<div class="no_right_answer toggle btn btn-primary off" data-toggle="toggle">
+					<input type="checkbox" id="choice3_right_<?php echo $type4  ?>"
+						class="choice_right_<?php echo $type4  ?>">
+					<div class="toggle-group">
+						<label class="toggle-on btn btn-primary">Đúng</label> <label
+							class="toggle-off btn btn-success active">Sai</label> <span
+							class="toggle-handle btn"></span>
+					</div>
+				</div>
+				<br> <label for="explain3_<?php echo $type4  ?>">Giải thích</label>
+				<textarea id="explain3_<?php echo $type4  ?>" class="explain_<?php echo $type4  ?>"
+					placeholder="Giải thích"></textarea>
+			</fieldset>
+			<fieldset id="4_<?php echo $type4  ?>">
+				<label for="choice4_<?php echo $type4  ?>">Lựa chọn 4</label>
+				<textarea id="choice4_<?php echo $type4  ?>" class="choice_<?php echo $type4  ?> choice"
+					onkeyup="add_more_choice(this,4,3,'<?php echo $type4  ?>')"></textarea>
+				<div class="no_right_answer toggle btn btn-primary off" data-toggle="toggle">
+					<input type="checkbox" id="choice4_right_<?php echo $type4  ?>"
+						class="choice_right_<?php echo $type4  ?>">
+					<div class="toggle-group">
+						<label class="toggle-on btn btn-primary">Đúng</label> <label
+							class="toggle-off btn btn-success active">Sai</label> <span
+							class="toggle-handle btn"></span>
+					</div>
+				</div>
+				<br> <label for="explain4_<?php echo $type4  ?>">Giải thích</label>
+				<textarea id="explain4_<?php echo $type4  ?>" class="explain_<?php echo $type4  ?>"
+					placeholder="Giải thích"></textarea>
+			</fieldset>
+		</form>
+		<div style="width:78%;" class="toggle btn off no_right_answer_toggle no_right_answer_toggle_<?php echo $type4  ?>" data-toggle="toggle">
+			<input id="all_wrong_<?php echo $type4  ?>" type="checkbox">
+			<div class="toggle-group">
+				<label class="toggle-on btn btn-primary">Không đáp án nào đúng</label> 
+				<label class="toggle-off btn active">Không đáp án nào đúng</label> 
+				<span class="toggle-handle btn"></span>
+			</div>
+		</div>
+		<div style="margin-left:2px;" class="toggle off btn btn-primary disabled button_show_right_answer button_show_right_answer_<?php echo $type4  ?>" data-toggle="">
+			<input id="show_right_<?php echo $type4  ?>" type="checkbox">
+			<div class="toggle-group">
+				<label class="toggle-on btn btn-primary">Hiện</label> 
+				<label class="toggle-off btn active">Ẩn</label> 
+				<span class="toggle-handle btn"></span>
+			</div>
+		</div>
+		<div class="right_answer_input_<?php echo $type4  ?>" style="display: none;">
+			<form action="">
+				<fieldset>
+					<textarea style="width: 95.5%;" id="right_answer_<?php echo $type4  ?>"
+						placeholder="Đáp án ĐÚNG"></textarea>
+				</fieldset>
+			</form>
+		</div>
+		<button class="btn btn-large btn-primary"
+			style="display: block; margin-top: 20px;" type="button"
+			onclick="create_question('<?php echo $type4  ?>')">Nhập câu hỏi</button>
+	</div>
+</div>

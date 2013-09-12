@@ -1,0 +1,138 @@
+<title>Đăng nhập hệ thống</title>
+	<link rel="stylesheet" href="<?php echo base_url() ?>public/css/login_style.css" type="text/css">
+	<link rel="stylesheet" href="<?php echo base_url() ?>public/css/jquery-ui.css" type="text/css">
+	<script type="text/javascript" src="<?php echo base_url() ?>public/js/jquery.js"></script>
+	<script type="text/javascript" src="<?php echo base_url() ?>public/js/jquery-ui.js"></script>
+	<script type="text/javascript">
+		function display_option_grade(){
+			var role_id = $("#role").val();
+			if(role_id=="2") document.getElementById("option_grade").style.display = "block";
+			else document.getElementById("option_grade").style.display = "none";
+		}
+		function dangky(type){
+			if(typeof String.prototype.trim !== 'function') {
+				String.prototype.trim = function() {
+				return this.replace(/^\s+|\s+$/, ''); 
+				}
+			}
+			var ajax = new XMLHttpRequest();
+			var user = document.getElementById('user').value;
+			var passwd = document.getElementById('passwd').value;
+			var repasswd = document.getElementById('repasswd').value;
+			var gender = document.getElementById('gender').value;
+			var email = document.getElementById('email').value;
+			var dob = document.getElementById('dob').value;
+			var cell_number = document.getElementById('cell_number').value;
+			var landline = document.getElementById('landline').value;
+			var add = document.getElementById('add').value;
+			var role = document.getElementById('role').value;
+			var grade = document.getElementById('grade').value;
+			if(passwd.trim() != repasswd.trim()){
+				document.getElementById('form_message').innerHTML = "Nhập password không khớp!";
+			}
+			else{
+				var str = "submit="+type+"&username="+user+"&pass="+passwd+"&grade="+grade+"&gender="+gender+"&email="+email+"&dob="+dob+"&cell_number="+cell_number+"&landline="+landline+"&add="+add+"&role="+role;
+				ajax.open("POST","<?php echo base_url(); ?>auth/user/signup",true);							
+				ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");
+				ajax.send(str);
+				//alert("test");				
+				ajax.onreadystatechange = function(){
+					if(ajax.readyState == 4)
+					{
+						//alert(ajax.responseText);						
+						var response = ajax.responseText;
+						if(response.trim()=="Failed"){
+							document.getElementById('form_message').innerHTML = "Đăng ký không thành công! Tài khoản đã tồn tại!";
+						}
+						else{
+							window.location = response;
+						}					   	
+					}					
+				}				
+			}
+			
+		}
+
+		$(window).bind('keydown', function(e){
+			if(e.keyCode==13) dangky('signup');	
+		});
+		$(function() {
+		    $( "#dob" ).datepicker();
+		});
+	</script>
+	<body style="text-align: center;">
+		<form id="form_login" method="post" onsubmit="dangky('signup')" style="margin:0 auto; margin-top: 15px;">
+			<h1>Đăng ký tài khoản</h1>
+			<p id="form_message" style="color:red;"></p>
+			<p>
+				<label for="user">Tên đăng nhập: </label> <input id="user" type="text"
+					class="input" name="user" placeholder="Tài khoản" />
+			</p>
+			<p>
+				<label for="passwd">Password: </label> <input id="passwd"
+					type="password" class="input" name="passwd" placeholder="Mật khẩu" />
+			</p>
+			<p>
+				<label for="repasswd">Nhập lại password: </label> <input id="repasswd"
+					type="password" class="input" name="repasswd" placeholder="Nhập lại mật khẩu" />
+			</p>
+			<p>
+				<label for="gender">Giới tính: </label> 
+				<select id="gender">
+					<option value="1">Nam</option>
+					<option value="2">Nữ</option>
+				</select>
+			</p>
+			<p>
+				<label for="role">Tài khoản: </label> 
+				<select id="role" onchange="display_option_grade()">
+					<?php
+	    				foreach($list_roles as $row){
+				    ?>
+						<option value="<?php echo $row['id'] ?>" <?php if($row['id']==1) echo "selected"; ?>>
+							<?php echo $row['name'] ?></option>
+					<?php
+				    	}
+					?>
+				</select>
+			</p>
+			<p style="display:none" id="option_grade">
+				<label for="grade">Lớp: </label>
+				<select id="grade">
+					<?php
+	    				foreach($list_grades as $row){
+				    ?>
+						<option value="<?php echo $row['id'] ?>" <?php if($row['name']=="Lớp 12") echo "selected"; ?>>
+							<?php echo $row['name'] ?></option>
+					<?php
+				    	}
+					?>
+				</select>
+			</p>
+			<p>
+				<label for="email">Email: </label> <input id="email" type="text"
+					class="input" name="email" placeholder="Email" />
+			</p>
+			<p>
+				<label for="dob">Ngày sinh: </label> <input id="dob" type="text"
+					class="input" name="dob" placeholder="Ngày sinh" />
+			</p>
+			<p>
+				<label for="cell_number">Số di động: </label> <input id="cell_number" type="text"
+					class="input" name="cell_number" placeholder="Số di động" />
+			</p>
+			<p>
+				<label for="landline">Số điện thoại nhà: </label> <input id="landline" type="text"
+					class="input" name="landline" placeholder="Số điện thoại nhà" />
+			</p>
+			<p>
+				<label for="add">Địa chỉ: </label> <input id="add" type="text"
+					class="input" name="add" placeholder="Địa chỉ" />
+			</p>
+			<p>
+				<input type="button" onclick="dangky('signup')"
+					class="submit" value="Đăng ký" style="background-color: #067CD3;">
+					<div style="font-color: red;" id="result"></div>
+			</p>
+		</form>
+	</body>

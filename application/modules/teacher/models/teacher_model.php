@@ -53,7 +53,21 @@ class Teacher_model extends CI_Model {
     		"date_created"=>$create_date,
     		"expected_end_date"=>$expected_finish
     	);
-    	return $this->db->insert("classes",$data_input);    	
+    	$query_insert_class = $this->db->insert("classes",$data_input);  
+    	$data_input_class = array(
+    		"class_id" => $this->db->insert_id(),    	
+    	);  	
+    	switch ($role){
+    		case 1:
+    			$data_input_class['teacher_id'] = $this->session->userdata('user_id');
+    			$query_insert_class_user = $this->db->insert("class_teacher",$data_input_class); 
+    			break;
+    		case 2:
+    			$data_input_class['student_id'] = $this->session->userdata('user_id');
+    			$query_insert_class_user = $this->db->insert("class_student",$data_input_class); 
+    			break;
+    	}    	
+    	return ($query_insert_class && $query_insert_class_user);
     }
     
     public function create_question($question_type,$no_right_choice,$right_answer,$subject,$grade,$curriculum,$suffle,$question_content,$detailed_answer_array,$hint_array,$choice_array,$choice_right_array,$explain_array,$point_array){
@@ -64,7 +78,8 @@ class Teacher_model extends CI_Model {
     		"subject_id" => $subject,
     		"has_hint" => (isset($hint_array) && $hint_array!=null) ? 1 : 0,
     		"content" => $question_content,
-    		"typist_id" => '2',
+    		"author_id" => $this->session->userdata('user_id'),
+    		"typist_id" => $this->session->userdata('user_id'),
     		"grade_id" => $grade,
     		"curriculum_type_id" => $curriculum,
     		"number_of_answers" => count($choice_array),
@@ -92,7 +107,7 @@ class Teacher_model extends CI_Model {
 		$data_input_detailed_answer = array(
 			"question_id" => $question_id,
 			"author_type" => 1,
-			"author_id" => '2',
+			"author_id" => $this->session->userdata('user_id'),
 			"answer" => $detailed_string
 		);	
 		$data_input_hint = array(

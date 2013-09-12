@@ -11,8 +11,8 @@ $(document).ready(function(){
 	}); 
 	$('textarea.choice').keyup(function(){  		
 	    var array = $(this).attr('id').split("_");
-	    var order = array[0].substr(6,1); 
-	    $("#choice"+order+"_"+array[1]+"_width").html($(this).val());
+	    var order = array[0].substr(6,1);	    
+	    $("#choice"+order+"_"+array[1]+"_width").html(String.fromCharCode(65 + (order-1))+". "+$(this).val());
 	    MathJax.Hub.Queue(["Typeset",MathJax.Hub,"choice"+order+"_"+array[1]+"_width"]);
 	});
 });

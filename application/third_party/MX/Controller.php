@@ -86,4 +86,20 @@ class MX_Controller
     	$this->load_css_js();
 		$this->template->parse_view('navbar' , 'navbar.html' , $this->data);                    
     }
+    
+	public function load_question_temp(){
+    	$this->load->model('teacher_model');
+        $this->load->library('template');
+        $this->template->set_template('question');
+        // Add DocType
+        $this->template->add_doctype('XHTML5');        
+            	        
+        // Add meta
+        $this->template->add_meta('viewport','width=device-width, initial-scale=1.0');
+        $this->template->add_meta('keywords','Konocy');
+        $this->template->add_meta('robots','noodp, noydir');
+        $this->template->add_meta('robots','index, follow');
+    	$this->load_css_js();
+		$this->template->parse_view('navbar' , 'navbar.html' , $this->data);                    
+    }
 }

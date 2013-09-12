@@ -1,35 +1,34 @@
 <title>Đăng nhập hệ thống</title>
-	<link rel="stylesheet" href="../public/css/login_style.css" type="text/css">
-	<script type="text/javascript" src="../public/js/jquery.js"></script>
+	<link rel="stylesheet" href="<?php echo base_url() ?>public/css/login_style.css" type="text/css">
+	<script type="text/javascript" src="<?php echo base_url() ?>public/js/jquery.js"></script>
 	<script type="text/javascript">
-		function dangnhap(){
+		function dangnhap(type){
 			if(typeof String.prototype.trim !== 'function') {
 				String.prototype.trim = function() {
 				return this.replace(/^\s+|\s+$/, ''); 
 				}
 			}
 			var ajax = new XMLHttpRequest();
-			var user = document.getElementById('user').value;
-			var passwd = document.getElementById('passwd').value;
-			if(user==""||passwd==""){
-				alert("Bạn cần nhập username và mật khẩu.");
+			var email = document.getElementById('email').value;
+			var pass = document.getElementById('passwd').value;
+			if(email==""||pass==""){
+				alert("Bạn cần nhập email và mật khẩu.");
 			}
 			else{
-				var str = "&user="+user+"&pass="+passwd;
-				ajax.open("POST","<?php echo base_url(); ?>"+"login/login_action",true);
+				var str = "submit="+type+"&email="+email+"&pass="+pass;
+				ajax.open("POST","<?php echo base_url(); ?>auth/user/login",true);
 				ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");
 				ajax.send(str);
 				ajax.onreadystatechange = function(){
 					if(ajax.readyState == 4)
-					{
+					{				
 						var response = ajax.responseText;
 						if(response.trim()=="Failed"){
-							document.getElementById('form_message').innerHTML = "Nhập sai username hoặc mật khẩu";
+							document.getElementById('form_message').innerHTML = "Nhập sai email hoặc mật khẩu";
 						}
 						else{
-							window.location = "<?php echo base_url();?>";
-						}
-											   	
+							window.location = response;							
+						}					
 					}					
 				}
 			}
@@ -37,25 +36,27 @@
 
 		$(window).bind('keydown', function(e){
 			if(e.keyCode==13)
-				dangnhap();	
+				dangnhap('signin');	
 		});
 	</script>
 	<body style="text-align: center;">
-		<form id="form_login" method="post" onsubmit="dangnhap()">
+		<form id="form_login" method="post" onsubmit="dangnhap('signin')">
 			<h1>Đăng nhập vào hệ thống</h1>
-			<p id="form_message"></p>
+			<p id="form_message" style="color:red;"></p>
 			<p>
-				<label for="user">User name: </label> <input id="user" type="text"
-					class="input" name="user" placeholder="Tài khoản" />
+				<label for="email">User name: </label> <input id="email" type="text"
+					class="input" name="email" placeholder="Email" />
 			</p>
 			<p>
 				<label for="passwd">Password: </label> <input id="passwd"
 					type="password" class="input" name="passwd" placeholder="Mật khẩu" />
 			</p>
 			<p>
-				<input type="button" name="submit" onclick="dangnhap()"
+				<input type="button" name="submit" onclick="dangnhap('signin')"
 					class="submit" value="Đăng nhập" style="background-color: #067CD3;">
 					<div style="font-color: red;" id="result"></div>
+				<span>Bạn chưa có tài khoản?</span>
+				<span><a href="<?php echo base_url() ?>auth/user/signup">Đăng ký</a></span>
 			</p>
 		</form>
 	</body>

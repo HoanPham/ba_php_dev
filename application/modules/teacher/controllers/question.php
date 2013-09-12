@@ -5,7 +5,7 @@
     function __construct(){    	
         parent::__construct();
 
-        $this->load_default_temp();
+        $this->load_question_temp();
         // Add title
         $this->template->add_title('Konocy Garden | Teacher');
         /* Add BA css */
@@ -40,9 +40,8 @@
     	foreach($this->data['list_question_types'] as $row){
     		$this->data['type'.$i] = $row['id'];
     		$i++;
-    	}
-    	$this->parse_data();        	
-    	//echo "test";
+    	}    	
+    	$this->parse_data(); 
     }  
     
 	function utf8Urldecode($value){
@@ -56,13 +55,7 @@
 	    return $value;
 	}
 
-    public function create_question(){
-    	//echo "test";
-    	
-    	/*    	
-    	if($this->teacher_model->create_class($this->security->xss_clean($this->input->post('name')),$this->security->xss_clean($this->input->post('subject')),$this->security->xss_clean($this->input->post('grade')),$this->security->xss_clean($this->input->post('goal')),$this->security->xss_clean($this->input->post('expected_finish')))) echo "Success";
-    	else echo "Failed";
-    	*/    	
+    public function create_question(){ 	
     	$question_type = $this->input->post('type');
     	$subject = $this->input->post('subject');
     	$grade = $this->input->post('grade');
@@ -84,30 +77,7 @@
 		foreach ($orders as $order) {
    			echo $choice_array[$order]."\n";
 		}
-		*/
-    	/*
-    	switch ($type){
-    		case "full_point":    			
-    			$question_type = '0104';
-    			break;
-    		case "part_point":
-    			$question_type = '0105';
-    			break;
-    		case "trad":
-    			$question_type = '0101';
-    			break;	
-    		case "short":
-    			$question_type = '0200';
-    			break;	
-    		case "cloze":
-    			$question_type = '0300';
-    			break;	
-    	} 
-    	*/
-    	//echo $question_content;
-    	//if(count($choice_right_array)==1 && type!="trad") $question_type = '0103';
-    	//echo $this->teacher_model->create_question($question_type,$no_right_choice,$right_answer,$subject,$grade,$curriculum,$suffle,$question_content,$detailed_answer_array,$hint_array,$choice_array,$choice_right_array,$explain_array,$point_array);
-    	//print_r($choice_right_array);  	
+		*/	
     	if($this->teacher_model->create_question($question_type,$no_right_choice,$right_answer,$subject,$grade,$curriculum,$suffle,$question_content,$detailed_answer_array,$hint_array,$choice_array,$choice_right_array,$explain_array,$point_array)) echo "Success";
     	else echo "Failed";
     }    
@@ -115,7 +85,13 @@
     public function parse_data(){
     	// Parser data 
     	$this->template->parse_view("sidebar","sidebar.html",$this->data);
-    	$this->template->parse_view("content","question/create_question.html",$this->data);    	   		
+    	$this->template->parse_view("tab_question_type","question/tab_question_type.html",$this->data);
+		$this->template->parse_view("tab_multichoice_question_type","question/tab_multichoice_question_type.html",$this->data);
+		$this->template->parse_view("multichoice_trad","question/multichoice_trad.html",$this->data);
+		$this->template->parse_view("multichoice_fullpoint","question/multichoice_fullpoint.html",$this->data);
+		$this->template->parse_view("multichoice_partpoint","question/multichoice_partpoint.html",$this->data);
+		$this->template->parse_view("short_answer","question/short_answer.html",$this->data);
+		$this->template->parse_view("cloze","question/cloze.html",$this->data);
         // Render template
         $this->template->render();
     }

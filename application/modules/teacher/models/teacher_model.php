@@ -106,7 +106,7 @@ class Teacher_model extends CI_Model {
 		}	
 		$data_input_detailed_answer = array(
 			"question_id" => $question_id,
-			"author_type" => 1,
+			"author_type" => $this->session->userdata('role'),
 			"author_id" => $this->session->userdata('user_id'),
 			"answer" => $detailed_string
 		);	

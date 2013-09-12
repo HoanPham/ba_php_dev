@@ -10,15 +10,7 @@ web1: #component type & number
     - mcrypt
     - mysqli
     - mbstring
-     
-db1: #component type & number 
-  name: ba_v12            #component settings
-  type: mysql
-
-db2: #component type & number 
-  name: ba_v12_2            #component settings
-  type: mysql
-
+ 
 cache1:
   name: ba_v12
   type: memcached

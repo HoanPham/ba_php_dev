@@ -10,7 +10,7 @@ web1: #component type & number
     - mcrypt
     - mysqli
     - mbstring
- 
+    
 cache1:
   name: ba_v12
   type: memcached

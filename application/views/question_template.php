@@ -24,9 +24,14 @@
 					echo $sidebar;
 				?>
 			</div>
-			<div class="span10">
-    			<div id="create_question" class="row-fluid show-grid">
-    				<div class="span12">
+			<div class="span10" style="min-height:606px;overflow:hidden;">
+				<div id="manage_questions" class="row-fluid show-grid box"> 
+					<?php if(isset($manage_question) && $manage_question!=NULL) 
+						echo $manage_question;
+					?>
+    			</div>
+    			<div id="create_question" class="row-fluid show-grid box" style="left:-75%;">
+    				<div class="span12" style="margin-left:10px;">
     					<?php if(isset($tab_question_type) && $tab_question_type!=NULL) 
 							echo $tab_question_type;
 						?>
@@ -55,15 +60,11 @@
 							?>
 						</div>
     				</div>
-    			</div>
-    			<div id="manage_questions" class="row-fluid show-grid" style="display:none">    				
-    				<?php if(isset($content) && $content!=NULL) 
-						echo $content;
-					?>
-    			</div>
+    			</div> 			
     		</div>
 		</div>
 	</div>
+	<div style="clear:both;"></div>
 	<footer id="footer">
 		<div class="footer-container">
 			<div class="row-fluid main-links">

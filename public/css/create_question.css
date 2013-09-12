@@ -58,3 +58,12 @@ margin-left: 2.564102564102564%;
 textarea.hint,textarea.detailed_answer{
 width:97%;
 }
+.box {
+    position: absolute;
+    width: 100%;    
+    left: 50%;
+    /*height:auto;*/
+    min-height:606px;
+    /*top: 100px;*/
+    margin-left: -50%;
+}

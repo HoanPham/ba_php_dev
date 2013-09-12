@@ -23,7 +23,7 @@ $template['question']['regions'] = array(
 	'multichoice_partpoint',
 	'short_answer',
 	'cloze',
-	'content'
+	'manage_question'
 );
 $template['default']['parser'] = 'parser';
 $template['default']['parser_method'] = 'parse';

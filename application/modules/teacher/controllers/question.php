@@ -17,6 +17,7 @@
         /* Add BA js */
         $this->template->add_js('public/js/multichoice_constraints.js');
         $this->template->add_js('public/js/preview.js');
+        $this->template->add_js('public/js/ajax_slide_animation.js');
         $this->template->add_js('public/js/auto_add_div.js');        
         $this->template->add_js('public/js/ba_form_submit.js');
         //$this->template->add_js('public/js/ba_validation.js');
@@ -36,6 +37,7 @@
     	$this->data['list_curriculum'] = $this->teacher_model->getListCurriculum();
     	$this->data['tag_area'] = $this->teacher_model->show_create_tag_area();
     	$this->data['list_question_types'] = $this->teacher_model->getListQuestionTypes();
+    	$this->data['list_questions'] = $this->teacher_model->getListQuestions();
     	$i = 0;
     	foreach($this->data['list_question_types'] as $row){
     		$this->data['type'.$i] = $row['id'];
@@ -92,6 +94,7 @@
 		$this->template->parse_view("multichoice_partpoint","question/multichoice_partpoint.html",$this->data);
 		$this->template->parse_view("short_answer","question/short_answer.html",$this->data);
 		$this->template->parse_view("cloze","question/cloze.html",$this->data);
+		$this->template->parse_view("manage_question","question/manage_question.html",$this->data);
         // Render template
         $this->template->render();
     }

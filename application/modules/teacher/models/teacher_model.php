@@ -41,6 +41,22 @@ class Teacher_model extends CI_Model {
     	return $query->result_array();    	
     }
     
+    public function getListQuestions(){
+    	$this->db->select('g.name as grade,subject_name as subject,c_types.name as curriculum,v12.id as id,has_hint as hint,q_types.name as question_type,date_created,date_edited');	
+    	$this->db->from('v12_question as v12');
+    	$this->db->join('grades as g','g.id = v12.grade_id');
+    	$this->db->join('subjects as s','s.id = v12.subject_id');
+    	$this->db->join('curriculum_types as c_types','c_types.id = v12.curriculum_type_id');
+    	$this->db->join('questions_question_types as q_q_types','q_q_types.question_id = v12.id');
+    	$this->db->join('question_types as q_types','q_q_types.question_type_id = q_types.id');
+    	//$this->db->join('detailed_answers as da','da.question_id = v12.id');
+    	$query = $this->db->get();
+    	if($query->num_rows() > 0){
+    		return $query->result_array();
+    	}
+    	else return false;
+    }
+    
     public function create_class($name,$subject,$grade,$goal,$expected_finish){
     	$create_date = date("Y-m-d H:i:s");
     	$quickcode = random_string("alnum",5);

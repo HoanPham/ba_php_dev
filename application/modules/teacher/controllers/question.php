@@ -82,7 +82,13 @@
 		*/	
     	if($this->teacher_model->create_question($question_type,$no_right_choice,$right_answer,$subject,$grade,$curriculum,$suffle,$question_content,$detailed_answer_array,$hint_array,$choice_array,$choice_right_array,$explain_array,$point_array)) echo "Success";
     	else echo "Failed";
-    }    
+    }
+
+    public function load_data_manage_question(){
+    	$this->data['list_questions'] = $this->teacher_model->getListQuestions();
+    	$this->load->view("question/manage_question.html",$this->data);
+    	//$this->template->render();
+    }
         
     public function parse_data(){
     	// Parser data 

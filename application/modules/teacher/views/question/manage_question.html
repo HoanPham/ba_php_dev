@@ -1,42 +1,63 @@
-<div class="span12" style="margin-left:10px;">
-	<div class="page-header" style="padding-bottom:10px;">
-		<h4 style="display:inline">Danh sách câu hỏi đã tạo</h4>
-		<span style="float:right;margin-right:10px;"><a id="create_question_slide" href="javascript:void()" class="btn btn-small btn-primary">Tạo câu hỏi</a></span> 
-	</div>
-	<table class="table table-hover">
-		<thead>
-			<tr>
-				<th>Lớp</th>
-				<th>Môn</th>
-				<th>Chương trình học</th>
-				<th>ID</th>
-				<th>Loại câu hỏi</th>
-				<th>Có gợi ý</th>
-				<th>Ngày khởi tạo</th>
-				<th>Ngày sửa cuối</th>
-				<th>Chỉnh sửa</th>
-				<th>Preview</th>
-			</tr>
-		</thead>
-		<tbody>
-			<?php
-				foreach($list_questions as $row){
+<div class="page-header" style="padding-bottom:10px;">
+	<h4 style="display:inline">Danh sách câu hỏi đã tạo</h4>
+	<span style="float:right;margin-right:10px;"><a id="create_question_slide" href="javascript:void()" class="btn btn-small btn-primary">Tạo câu hỏi</a></span> 
+</div>
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>Lớp</th>
+			<th>Môn</th>
+			<th>Chương trình học</th>
+			<th>ID</th>
+			<th>Loại câu hỏi</th>
+			<th>Có gợi ý</th>
+			<th>Ngày khởi tạo</th>
+			<th>Ngày sửa cuối</th>
+			<th>Chỉnh sửa</th>
+			<th>Preview</th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php
+			foreach($list_questions as $row){
 			?>
-			<tr>
-				<td><?php echo $row['grade'] ?></td>
-				<td><?php echo $row['subject'] ?></td>
-				<td><?php echo $row['curriculum'] ?></td>
-				<td><?php echo $row['id'] ?></td>
-				<td><?php echo $row['question_type'] ?></td>
-				<td><?php echo ($row['hint']) ? "Có" : "Không" ?></td>
-				<td><?php echo $row['date_created'] ?></td>
-				<td><?php echo $row['date_edited'] ?></td>
-				<td><a href="javascript:void()" onclick="edit('<?php echo $row['id'] ?>')">Edit</a></td>
-				<td><a href="javascript:void()" onclick="preview('<?php echo $row['id'] ?>')">Preview</a></td>
-			</tr>
-			<?php
-				}
+		<tr>
+			<td><?php echo $row['grade'] ?></td>
+			<td><?php echo $row['subject'] ?></td>
+			<td><?php echo $row['curriculum'] ?></td>
+			<td><?php echo $row['id'] ?></td>
+			<td><?php echo $row['question_type'] ?></td>
+			<td><?php echo ($row['hint']) ? "Có" : "Không" ?></td>
+			<td><?php echo $row['date_created'] ?></td>
+			<td><?php echo $row['date_edited'] ?></td>
+			<td><a href="javascript:void()" onclick="edit('<?php echo $row['id'] ?>')">Edit</a></td>
+			<td><a href="javascript:void()" onclick="preview('<?php echo $row['id'] ?>')">Preview</a></td>
+		</tr>
+		<?php
+			}
 			?>			
-		</tbody>
-	</table>
-</div>				
+	</tbody>
+</table>
+<script>
+$('#create_question_slide').click(function() {
+	/*
+    $('.box').each( function() {
+        if ($(this).offset().left < 0) {
+            $(this).css("left", "150%");
+        }
+    });	*/
+    	$("#manage_questions").animate({
+         left: '-75%'
+     }, 500);
+ 
+     if ($("#manage_questions").next().length > 0) {
+         $("#manage_questions").next().animate({
+             left: '50%'
+         }, 500);
+     } else {
+         $("#manage_questions").prevAll().last().animate({
+             left: '50%'
+         }, 500);
+     }
+});
+</script>		

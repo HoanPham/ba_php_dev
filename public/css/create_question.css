@@ -70,3 +70,6 @@ width:97%;
 #manage_questions{
 	position:absolute;
 }
+.row-fluid .span10 {
+	width: 84%;
+}

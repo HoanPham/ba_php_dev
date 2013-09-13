@@ -24,11 +24,13 @@
 					echo $sidebar;
 				?>
 			</div>
-			<div class="span10" style="min-height:606px;overflow:hidden;">
+			<div class="span10" style="min-height:606px;overflow-x:hidden;">
 				<div id="manage_questions" class="row-fluid show-grid box"> 
-					<?php if(isset($manage_question) && $manage_question!=NULL) 
-						echo $manage_question;
-					?>
+					<div id="list_question" class="span12" style="margin-left:10px;">
+						<?php if(isset($manage_question) && $manage_question!=NULL) 
+							echo $manage_question;
+						?>
+					</div>
     			</div>
     			<div id="create_question" class="row-fluid show-grid box" style="left:-75%;">
     				<div class="span12" style="margin-left:10px;">

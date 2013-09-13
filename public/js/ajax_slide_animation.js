@@ -1,12 +1,6 @@
 $(document).ready(function(){	
 	$('#create_question_slide').click(function() {
-		/*
-	    $('.box').each( function() {
-	        if ($(this).offset().left < 0) {
-	            $(this).css("left", "150%");
-	        }
-	    });	*/
-	    $("#manage_questions").animate({
+	    	$("#manage_questions").animate({
 	         left: '-75%'
 	     }, 500);
 	 
@@ -21,12 +15,6 @@ $(document).ready(function(){
 	     }
 	});
 	$('#manage_question_slide').click(function() {
-		/*
-	    $('.box').each( function() {
-	        if ($(this).offset().left < 0) {
-	            $(this).css("left", "150%");
-	        }
-	    });	*/
 	    $("#create_question").animate({
 	         left: '-75%'
 	     }, 500);

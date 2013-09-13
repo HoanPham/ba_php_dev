@@ -65,7 +65,11 @@ function create_question(type){
 	ajax.send(str);	
 	ajax.onreadystatechange = function() {
 		if (ajax.readyState == 4) {
-			alert(ajax.responseText);
+			$("#list_question").load("../teacher/question/load_data_manage_question");
+			$("#list_answers_"+type)[0].reset();
+			var textarea_id = tinyMCE.activeEditor.editorId;
+			tinymce.get(textarea_id).setContent(''); 
+			alert(ajax.responseText);			
 			//document.getElementById("myTab_multiple_choice").innerHTML = ajax.responseText;
 			/*
 			if(ajax.responseText.trim() === "Success"){

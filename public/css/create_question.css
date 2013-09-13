@@ -59,11 +59,14 @@ textarea.hint,textarea.detailed_answer{
 width:97%;
 }
 .box {
-    position: absolute;
+    position: relative;
     width: 100%;    
     left: 50%;
     /*height:auto;*/
     min-height:606px;
     /*top: 100px;*/
     margin-left: -50%;
+}
+#manage_questions{
+	position:absolute;
 }

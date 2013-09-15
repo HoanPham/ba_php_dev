@@ -119,7 +119,12 @@
     	if($this->teacher_model->edit_question($question_id,$question_type,$no_right_choice,$right_answer,$subject,$grade,$curriculum,$suffle,$question_content,$detailed_answer_array,$hint_array,$choice_array,$choice_right_array,$explain_array,$point_array)) echo "Success";
     	else echo "Failed";
     }
-
+	
+    public function delete_question(){
+    	if($this->teacher_model->delete_question($this->input->post('question_id'))) echo "Success";
+    	else echo "Failed";	
+    }
+    
     public function load_data_manage_question(){
     	/* Load questions list */
     	$this->data['list_questions'] = $this->teacher_model->getListQuestions();

@@ -50,6 +50,7 @@ class Teacher_model extends CI_Model {
     	$this->db->join('questions_question_types as q_q_types','q_q_types.question_id = v12.id');
     	$this->db->join('question_types as q_types','q_q_types.question_type_id = q_types.id');
     	//$this->db->join('detailed_answers as da','da.question_id = v12.id');
+    	$this->db->order_by('v12.id','desc');
     	$query = $this->db->get();
     	if($query->num_rows() > 0){
     		return $query->result_array();
@@ -122,6 +123,7 @@ class Teacher_model extends CI_Model {
     }
     
     public function create_question($question_type,$no_right_choice,$right_answer,$subject,$grade,$curriculum,$shuffle,$question_content,$detailed_answer_array,$hint_array,$choice_array,$choice_right_array,$explain_array,$point_array){
+    	$create_date = date("Y-m-d H:i:s");
     	$check_insert = 0;
     	$hint_string = "";
     	$detailed_string = "";
@@ -135,6 +137,8 @@ class Teacher_model extends CI_Model {
     		"curriculum_type_id" => $curriculum,
     		"number_of_answers" => count($choice_array),
     		"no_right_choice" => $no_right_choice,
+    		"date_created"=>$create_date,
+    		"date_edited"=>$create_date,
     		"shuffle_or_fix" => $shuffle    		
     	);
     	$query_insert_v12_question = $this->db->insert("v12_question",$data_input_v12_question); 
@@ -197,13 +201,9 @@ class Teacher_model extends CI_Model {
 		if($query_insert_detailed_answer && $query_insert_hint && $query_insert_v12_question && $query_insert_question_type && $query_insert_right_answer && $check_insert==0) return $question_id;
 		else return false;
     }
-    
-    public function delete_choices($question_id){
-    	$this->db->where('question_id',$question_id);
-    	$this->db->delete('question_multichoice_choices');	
-    }
-    
+        
     public function edit_question($question_id,$question_type,$no_right_choice,$right_answer,$subject,$grade,$curriculum,$shuffle,$question_content,$detailed_answer_array,$hint_array,$choice_array,$choice_right_array,$explain_array,$point_array){
+    	$edit_date = date("Y-m-d H:i:s");
     	$check_insert = 0;
     	$hint_string = "";
     	$detailed_string = "";
@@ -217,6 +217,7 @@ class Teacher_model extends CI_Model {
     		"curriculum_type_id" => $curriculum,
     		"number_of_answers" => count($choice_array),
     		"no_right_choice" => $no_right_choice,
+    		"date_edited"=>$edit_date,
     		"shuffle_or_fix" => $shuffle    		
     	);
     	$this->db->where('id',$question_id);
@@ -255,7 +256,8 @@ class Teacher_model extends CI_Model {
 		$query_insert_detailed_answer = $this->db->update("detailed_answers",$data_input_detailed_answer);				
 		$this->db->where('question_id',$question_id);
 		$query_insert_hint = $this->db->update("question_hints",$data_input_hint);	
-		$this->delete_choices($question_id);
+		$this->db->where('question_id',$question_id);
+    	$this->db->delete('question_multichoice_choices');
 		if($question_type=="0101"||$question_type=="0103"||$question_type=="0104"||$question_type=="0105"){
 			for($i=0;$i<count($choice_array);$i++){
 				$data_input_choices = array(
@@ -284,6 +286,23 @@ class Teacher_model extends CI_Model {
 		else $query_insert_right_answer = true;
 		if($query_insert_detailed_answer && $query_insert_hint && $query_insert_v12_question && $query_insert_right_answer && $check_insert==0) return true;
 		else return false;	
+    }
+    
+    public function delete_question($question_id){
+    	$this->db->where('question_id',$question_id);
+    	$query_delete_hints	 = $this->db->delete('question_hints');
+    	$this->db->where('question_id',$question_id);
+    	$query_delete_detailed_answers	 = $this->db->delete('detailed_answers');    	    
+    	$this->db->where('question_id',$question_id);
+    	$query_delete_right_answers	 = $this->db->delete('question_right_answers');
+    	$this->db->where('question_id',$question_id);
+    	$query_delete_choices = $this->db->delete('question_multichoice_choices');
+    	$this->db->where('question_id',$question_id);
+    	$query_delete_question_types = $this->db->delete('questions_question_types');      	    	
+    	$this->db->where('id',$question_id);
+    	$query_delete_question = $this->db->delete('v12_question');
+    	if($query_delete_question_types && $query_delete_hints && $query_delete_detailed_answers && $query_delete_right_answers && $query_delete_choices && $query_delete_question) return true;
+    	else return false;
     }
     
     public function show_create_tag_area(){

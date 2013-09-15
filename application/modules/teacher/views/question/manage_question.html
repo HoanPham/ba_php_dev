@@ -18,7 +18,8 @@
 				<th>Ngày nhập</th>
 				<th>Ngày sửa cuối</th>
 				<th>Chỉnh sửa</th>
-				<th>Preview</th>
+				<th>Xem nhanh</th>
+				<th>Xóa</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -27,12 +28,12 @@
 					foreach($list_questions as $row){
 		?>
 			<tr>
-				<td><?php echo $row['id'] ?></td>
+				<td style="text-align:right;"><?php echo $row['id'] ?></td>
 				<td style="text-align:center;"><?php echo str_replace("Lớp","",$row['grade']) ?></td>
 				<td><?php echo $row['subject'] ?></td>
 				<td><?php echo $row['curriculum'] ?></td>				
 				<td style="text-align:center;"><?php echo $row['question_type_id'] ?></td>
-				<td style="text-align:center;"><?php echo ($row['hint']) ? "Có" : "Không" ?></td>
+				<td style="text-align:center;"><?php echo ($row['hint'] && $row['hint']!="") ? "Có" : "Không" ?></td>
 				<td style="text-align:center;">0</td>
 				<td style="text-align:center;">0</td>
 				<td style="text-align:center;">0</td>
@@ -40,6 +41,7 @@
 				<td><?php echo $row['date_edited'] ?></td>
 				<td style="text-align:center;"><a href="javascript:void()" class="btn btn-small btn-primary" onclick="edit('<?php echo $row['id'] ?>','<?php echo $row['question_type_id'] ?>')">Sửa</a></td>
 				<td style="text-align:center;"><a href="javascript:void()" role="button" class="btn btn-small btn-primary" onclick="show_modal(<?php echo $row['id'] ?>,'<?php echo $row['question_type_id'] ?>')" data-toggle="modal">Xem</a></td>
+				<td style="text-align:center;"><a href="javascript:void()" role="button" class="btn btn-small btn-primary" onclick="delete_question(<?php echo $row['id'] ?>)" data-toggle="modal">Xóa</a></td>
 			</tr>
 			<?php
 					}

@@ -62,13 +62,13 @@ function create_question(type){
 	ajax.send(str);	
 	ajax.onreadystatechange = function() {
 		if (ajax.readyState == 4) {
-			$("#list_question").load("../teacher/question/load_data_manage_question");
+			$("#list_questions").load("../teacher/question/load_data_manage_question");
 			$("#list_answers_"+type)[0].reset();
 			var textarea_id = tinyMCE.activeEditor.editorId;
 			tinymce.get(textarea_id).setContent(''); 
 			if(ajax.responseText.trim() === "Failed"){
 				document.getElementById('error').style.display = "inline-block";
-				$('.alert').addClass('fade in');
+				$('.alert').addClass('fade');
 				$('.alert').addClass('in');				
 			}
 			else{
@@ -101,7 +101,6 @@ function edit_question(type,question_id){
 	}
 	if($("#suffle_answer").is(':checked') || !$(this).closest('div').hasClass("off")) var suffle = 1;
 	else var suffle = 0;
-	//var i = 0;
 	$(".detailed_answer_"+type).each(function (i) {	
 		if(i==0) var myStr_Detail = $(this).val();
 		var myStr_Detail = '"""'+$(this).val();
@@ -111,7 +110,6 @@ function edit_question(type,question_id){
 		if(i==0) var myStr_Hint = $(this).val();
 		else var myStr_Hint = '"""'+$(this).val();
 		hint_array.push(myStr_Hint);
-		//}
 	});
 	$(".choice_"+type).each(function (i) {
 		if(i==0) var myStr_Choice = $(this).val();
@@ -171,13 +169,40 @@ function edit_question(type,question_id){
 				});
 		     }	 
 		     */
-			$("#list_question").load("../teacher/question/load_data_manage_question");
+			$("#list_questions").load("../teacher/question/load_data_manage_question");
 			if(ajax.responseText.trim() === "Success") window.location = "../teacher/question";
 			else{
 				document.getElementById('error').style.display = "inline-block";
-				$('.alert').addClass('fade in');
+				$('.alert').addClass('fade');
 				$('.alert').addClass('in');
 			}
 		}
 	}	
+}
+
+function delete_question(question_id){	
+	var ajax = new XMLHttpRequest();
+	var str = "question_id="+question_id;			
+	ajax.open("POST", "../teacher/question/delete_question", true);
+	ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");	
+	ajax.send(str);	
+	ajax.onreadystatechange = function() {
+		if (ajax.readyState == 4) {
+			if(ajax.responseText.trim() === "Success"){
+				$("#list_questions").load("../teacher/question/load_data_manage_question");
+			}
+			/*
+			if(ajax.responseText.trim() === "Success"){
+				document.getElementById('alert').style.display = "inline-block";
+				$('.alert').addClass('fade');
+				$('.alert').addClass('in');
+			}
+			else{
+				document.getElementById('error').style.display = "inline-block";
+				$('.alert').addClass('fade');
+				$('.alert').addClass('in');
+			}
+			*/
+		}
+	}
 }

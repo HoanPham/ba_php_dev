@@ -100,7 +100,22 @@ function add_more_choice(val, id, object, question_type) {
 	}
 	if (len != 0 && document.getElementById(object_id + choices + question_type) == null) {
 		var formID = document.getElementById(form_id + question_type);
-		formID.appendChild(newFieldset);		
+		formID.appendChild(newFieldset);
+		$('textarea').autosize();
+		$('.toggle.btn.no_right_answer').click(function(){
+			var checkbox = $(this).find('input');
+			if(!$(this).hasClass('off')){
+				enable_no_right_checkbox(checkbox.attr('class'),checkbox.attr('id'));
+			}
+			else if($(this).hasClass('off')){
+				var array = checkbox.attr('id').split("_");
+				$(".no_right_answer_toggle_"+array[2]).attr('data-toggle','toggle');
+				$(".no_right_answer_toggle_"+array[2]).addClass('off');
+				$(".button_show_right_answer_"+array[2]).addClass('disabled off');
+				$(".button_show_right_answer_"+array[2]).removeAttr('data-toggle');
+				$(".right_answer_input_"+array[2]).css({"display":"none"});
+			}
+		});
 	}
 	if (len == 0
 			&& document.getElementById(object_id + choices + question_type)

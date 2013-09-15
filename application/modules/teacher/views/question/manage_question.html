@@ -1,64 +1,46 @@
-<div class="page-header" style="padding-bottom:10px;">
-	<h4 style="display:inline">Danh sách câu hỏi đã tạo</h4>
-	<span style="float:right;margin-right:10px;"><a id="create_question_slide" href="javascript:void()" class="btn btn-small btn-primary">Tạo câu hỏi</a></span> 
-</div>
-<div id="list_questions">
-	<table class="table table-hover table-bordered">
-		<thead>
-			<tr>
-				<th>ID</th>
-				<th>Lớp</th>
-				<th>Môn</th>
-				<th>Chương trình học</th>				
-				<th>Loại câu hỏi</th>
-				<th>Có gợi ý</th>
-				<th>Số đáp án</th>
-				<th>Số KU</th>
-				<th>Số skill</th>
-				<th>Ngày nhập</th>
-				<th>Ngày sửa cuối</th>
-				<th>Chỉnh sửa</th>
-				<th>Xem nhanh</th>
-				<th>Xóa</th>
-			</tr>
-		</thead>
-		<tbody>
-			<?php
-				if(isset($list_questions) && $list_questions!=false){
-					foreach($list_questions as $row){
+<table class="table table_preview table-hover table-bordered">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Lớp</th>
+			<th>Môn</th>
+			<th>Chương trình học</th>				
+			<th>Loại câu hỏi</th>
+			<th>Có gợi ý</th>
+			<th>Số đáp án</th>
+			<th class="no_ku">Số KU</th>
+			<th class="no_skill">Số skill</th>
+			<th class="date_create">Ngày nhập</th>
+			<th class="date_edit">Ngày sửa cuối</th>
+			<th class="edit">Chỉnh sửa</th>
+			<th class="show_modal_preview">Xem nhanh</th>
+			<th class="delete">Xóa</th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php
+			if(isset($list_questions) && $list_questions!=false){
+				foreach($list_questions as $row){
 		?>
-			<tr>
-				<td style="text-align:right;"><?php echo $row['id'] ?></td>
-				<td style="text-align:center;"><?php echo str_replace("Lớp","",$row['grade']) ?></td>
-				<td><?php echo $row['subject'] ?></td>
-				<td><?php echo $row['curriculum'] ?></td>				
-				<td style="text-align:center;"><?php echo $row['question_type_id'] ?></td>
-				<td style="text-align:center;"><?php echo ($row['hint'] && $row['hint']!="") ? "Có" : "Không" ?></td>
-				<td style="text-align:center;">0</td>
-				<td style="text-align:center;">0</td>
-				<td style="text-align:center;">0</td>
-				<td><?php echo $row['date_created'] ?></td>
-				<td><?php echo $row['date_edited'] ?></td>
-				<td style="text-align:center;"><a href="javascript:void()" class="btn btn-small btn-primary" onclick="edit('<?php echo $row['id'] ?>','<?php echo $row['question_type_id'] ?>')">Sửa</a></td>
-				<td style="text-align:center;"><a href="javascript:void()" role="button" class="btn btn-small btn-primary" onclick="show_modal(<?php echo $row['id'] ?>,'<?php echo $row['question_type_id'] ?>')" data-toggle="modal">Xem</a></td>
-				<td style="text-align:center;"><a href="javascript:void()" role="button" class="btn btn-small btn-primary" onclick="delete_question(<?php echo $row['id'] ?>)" data-toggle="modal">Xóa</a></td>
-			</tr>
-			<?php
-					}
+		<tr style="cursor:pointer;" onclick="show_quick_preview(<?php echo $row['id'] ?>,'<?php echo $row['question_type_id'] ?>')">
+			<td style="text-align:right;"><?php echo $row['id'] ?></td>
+			<td style="text-align:center;"><?php echo str_replace("Lớp","",$row['grade']) ?></td>
+			<td><?php echo $row['subject'] ?></td>
+			<td><?php echo $row['curriculum'] ?></td>				
+			<td style="text-align:center;"><?php echo $row['question_type_id'] ?></td>
+			<td style="text-align:center;"><?php echo ($row['hint'] && $row['hint']!="") ? "Có" : "Không" ?></td>
+			<td style="text-align:center;">0</td>
+			<td class="no_ku" style="text-align:center;">0</td>
+			<td class="no_skill" style="text-align:center;">0</td>
+			<td class="date_create"><?php echo $row['date_created'] ?></td>
+			<td class="date_edit"><?php echo $row['date_edited'] ?></td>
+			<td class="edit" style="text-align:center;"><a href="javascript:void()" class="btn btn-small btn-primary" onclick="edit('<?php echo $row['id'] ?>','<?php echo $row['question_type_id'] ?>')">Sửa</a></td>
+			<td class="show_modal_preview" style="text-align:center;"><a href="javascript:void()" role="button" class="btn btn-small btn-primary" onclick="show_modal(<?php echo $row['id'] ?>,'<?php echo $row['question_type_id'] ?>')" data-toggle="modal">Xem</a></td>
+			<td class="delete" style="text-align:center;"><a href="javascript:void()" role="button" class="btn btn-small btn-primary" onclick="delete_question(<?php echo $row['id'] ?>)" data-toggle="modal">Xóa</a></td>
+		</tr>
+		<?php
 				}
-			?>			
-		</tbody>
-	</table>	
-</div>
-<script type="text/javascript">
-function show_modal(question_id,question_type_id){
-	var array = {};
-	array['question_id'] = question_id;
-	array['question_type_id'] = question_type_id;
-	$("#modal_preview").load("../teacher/question/load_data_preview_question",array);
-	$("#modal_preview").modal('show');
-}
-</script>
-<!-- Modal -->
-<div id="modal_preview" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> 
-</div>
+			}
+		?>			
+	</tbody>
+</table>	

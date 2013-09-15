@@ -1,0 +1,40 @@
+<?php
+function change_to_letter($number){
+	switch($number){
+		case 1:
+			return 'A';
+			break;
+		case 2:
+			return 'B';
+			break;
+		case 3:
+			return 'C';
+			break;
+		case 4:
+			return 'D';
+			break;
+	}						
+}
+?>
+<div class="page-header" style="padding-bottom:10px;">
+	<h4 style="display:inline">Câu hỏi đã tạo</h4>							
+</div>
+<div class="span12">
+	<p>
+		<?php echo $question_content ?>
+	</p>
+	<p>
+		<?php 
+			$i=0;
+			foreach($choices as $row){ 
+				$i++;
+		?>
+		<?php 
+			if($type_id=="0101") echo change_to_letter($i).". ".$row['content']."<br>"; 
+			else echo $i.". ".$row['content']."<br>";			
+		?>
+		<?php
+			}
+		?>
+	</p>
+</div>

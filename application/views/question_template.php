@@ -25,10 +25,31 @@
 			</div>
 			<div class="span10">
 				<div id="manage_questions" class="row-fluid show-grid box"> 					
-					<div class="span12" style="margin-left:10px;">						
+					<div class="span12" style="margin-left:10px;">
+						<div class="page-header" style="padding-bottom:10px;">
+							<h4 style="display:inline">Danh sách câu hỏi đã tạo</h4>
+							<span style="float:right;margin-right:10px;"><a id="create_question_slide" href="javascript:void()" class="btn btn-small btn-primary">Tạo câu hỏi</a></span> 
+							<span style="float: right; margin-right: 10px;">
+								<div class="quick_preview toggle btn btn-small btn-primary off" style="width:140px;" data-toggle="toggle">
+									<input type="checkbox" id="quick_preview">
+									<div class="toggle-group">
+										<label class="toggle-on btn btn-primary">Xem nhanh câu hỏi</label> <label
+											class="toggle-off btn active">Xem nhanh câu hỏi</label> <span
+											class="toggle-handle btn"></span>
+									</div>
+								</div> 
+							</span>
+						</div>	
+						<div id="list_questions">					
 						<?php if(isset($manage_question) && $manage_question!=NULL) 
 							echo $manage_question;
 						?>
+						</div>
+						<div id="quick_preview_block" style="display:none">							
+						</div>
+						<!-- Modal -->
+						<div id="modal_preview" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> 
+						</div>
 					</div>
     			</div>
     			<div id="create_question" class="row-fluid show-grid box" style="left:-75%;">

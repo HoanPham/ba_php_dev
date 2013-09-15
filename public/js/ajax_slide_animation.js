@@ -24,6 +24,7 @@ $(document).ready(function(){
 		$("#manage_questions").css({
 		      "position": "relative"
 		});		
+		
 	    $("#create_question").animate({
 	         left: '-75%'
 	     }, 500);	    

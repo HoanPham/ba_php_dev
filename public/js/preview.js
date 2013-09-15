@@ -18,4 +18,38 @@ $(document).ready(function(){
 	    else if($(this).val.length == 0) $("#choice"+order+"_"+array[1]+"_width").html(" ");
 	    MathJax.Hub.Queue(["Typeset",MathJax.Hub,"preview_area"]);
 	});	
+	$('.btn.quick_preview').click(function(){
+		if($(this).hasClass('off')){			
+			$(".no_ku").css({"display":"none"});
+			$(".no_skill").css({"display":"none"});
+			$(".date_create").css({"display":"none"});
+			$(".date_edit").css({"display":"none"});
+			$(".edit").css({"display":"none"});
+			$(".show_modal_preview").css({"display":"none"});
+			$(".delete").css({"display":"none"});
+			$("#list_questions").css({"width":"51%","float":"left"});
+			$("#quick_preview_block").css({"display":"block","width":"48%","float":"right"});
+		}
+		else{
+			$("#quick_preview_block").css({"display":"none"});
+			$("#list_questions").load("../teacher/question/load_data_manage_question");
+			$("#list_questions").css({"width":"100%"});
+		}
+	});
 });
+function show_modal(question_id,question_type_id){
+	var array = {};
+	array['question_id'] = question_id;
+	array['question_type_id'] = question_type_id;
+	array['preview_type'] = "modal";
+	$("#modal_preview").load("../teacher/question/load_data_preview_question",array);
+	$("#modal_preview").modal('show');
+}
+function show_quick_preview(question_id,question_type_id){
+	var array = {};
+	array['question_id'] = question_id;
+	array['question_type_id'] = question_type_id;
+	array['preview_type'] = "quick";
+	//alert(question_id)
+	$("#quick_preview_block").load("../teacher/question/load_data_preview_question",array);
+}

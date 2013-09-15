@@ -213,11 +213,16 @@
     	$this->data['detailed_answers'] = explode("$$$", $row['answer']);
     	
     	/* Load question's choices data */
-    	$this->data['choices'] = $this->teacher_model->getSpecificQuestionMultichoices($this->input->post('question_id'));        	    	
+    	$this->data['choices'] = $this->teacher_model->getSpecificQuestionMultichoices($this->input->post('question_id'));        	    	    	
     	
     	/* Render view */
-    	$this->load->view('question/modal_preview_question.html',$this->data); 
-    	echo "<script src=\"".base_url()."public/js/config.js\"></script>";   	
+    	if($this->input->post('preview_type')=="modal"){
+    		$this->load->view('question/modal_preview_question.html',$this->data);
+    	}
+    	if($this->input->post('preview_type')=="quick"){
+    		$this->load->view('question/quick_preview_question.html',$this->data);
+    	}
+    	echo "<script src=\"".base_url()."public/js/config.js\"></script>";      	       	 
     }
     
     public function parse_data(){

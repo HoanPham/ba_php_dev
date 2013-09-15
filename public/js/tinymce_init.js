@@ -18,8 +18,8 @@ tinyMCE.init({
 	        //console.debug('Key up event: ' + e.keyCode);
 	        var textarea_id = tinyMCE.activeEditor.editorId;
 	        var id_array = textarea_id.split("_");
-	        //alert(textarea_id);
-	        var question_content = tinyMCE.get(textarea_id).getContent();	        
+	        var question_content = tinyMCE.get(textarea_id).getContent();
+	        alert(textarea_id);
 	        $('#preview_question_'+id_array[2]).html(question_content);
 	        MathJax.Hub.Queue(["Typeset",MathJax.Hub,"preview_question_"+id_array[2]]);
 	        //document.getElementByClass('question_content_trad').innerHTML = question_content;

@@ -1,15 +1,15 @@
 <ul id="myTab" class="nav nav-tabs" style="margin-bottom: 15px;">
-	<li class="active"><a href="#multiple_choice" data-toggle="tab">Trắc
+	<li class="<?php if(isset($type_id) && ($type_id == $type6 || $type_id == $type7)) echo '';else echo 'active'; ?>"><a href="#multiple_choice" data-toggle="tab">Trắc
 			nghiệm</a></li>
-	<li class=""><a id="tab_question" href="#<?php echo $type6  ?>"
+	<li class="<?php if(isset($type_id) && $type_id == $type6) echo 'active' ?>"><a id="tab_question" href="#<?php echo $type6  ?>"
 		data-toggle="tab">Câu trả lời ngắn</a></li>
-	<li class=""><a id="tab_question" href="#<?php echo $type7 ?>" data-toggle="tab">Cloze</a>
+	<li class="<?php if(isset($type_id) && $type_id == $type6) echo 'active' ?>"><a id="tab_question" href="#<?php echo $type7 ?>" data-toggle="tab">Cloze</a>
 	</li>
 	<select id="curriculum">
 		<?php
     		foreach($list_curriculum as $row){
 			?>
-		<option value="<?php echo $row['id'] ?>" <?php if($row['id']==3) echo "selected"; ?>>
+		<option value="<?php echo $row['id'] ?>" <?php if($row['id']==3 || (isset($curriculum_type_id) && $row['id'] == $curriculum_type_id)) echo "selected"; ?>>
 			<?php echo $row['name'] ?></option>
 		<?php
     		}
@@ -19,7 +19,7 @@
 		<?php
     		foreach($list_grades as $row){
 			    	?>
-		<option value="<?php echo $row['id'] ?>" <?php if($row['name']=="Lớp 12") echo "selected"; ?>>
+		<option value="<?php echo $row['id'] ?>" <?php if($row['name']=="Lớp 12" || (isset($grade_id) && $row['id'] == $grade_id)) echo "selected"; ?>>
 			<?php echo $row['name'] ?></option>
 		<?php
     		}
@@ -29,11 +29,19 @@
 		<?php
     		foreach($list_subjects as $row){
 			?>
-		<option value="<?php echo $row['id'] ?>" <?php if($row['subject_name']=="Hóa học") echo "selected"; ?>>
+		<option value="<?php echo $row['id'] ?>" <?php if($row['subject_name']=="Hóa học" || (isset($grade_id) && $row['id'] == $subject_id)) echo "selected"; ?>>
 			<?php echo $row['subject_name'] ?></option>
 		<?php
     		}
 			?>
 	</select>
 	<span style="float:right;margin-right:10px;"><a id="manage_question_slide" href="javascript:void()" class="btn btn-small btn-primary">Quản lý câu hỏi</a></span>
+	<div class="alert" id="alert" style="display: none;">
+      <button type="button" class="close" data-dismiss="alert">×</button>
+      <strong>Bạn đã tạo câu hỏi thành công!</strong>
+   	</div>
+   	<div class="alert alert-error" id="error" style="display: none;">
+      <button type="button" class="close" data-dismiss="alert">×</button>
+      <strong>Có lỗi khi tạo câu hỏi!</strong>
+   	</div>
 </ul>

@@ -1,0 +1,163 @@
+<script src="../public/js/multichoice_constraints.js"></script>
+<script>
+tinyMCE.init({
+	mode : "specific_textareas",
+	editor_selector : "editor",
+	theme : "advanced",
+	height: "150",
+	theme_advanced_buttons1 : "fontselect,fontsizeselect,bold,italic,underline,strikethrough,separator,sub,sup,separator,cut,copy,paste,undo,redo",
+	theme_advanced_buttons2 : "justifyleft,justifycenter,justifyright,justifyfull,separator,numlist,bullist,outdent,indent,separator,forecolor,separator,hr,link,unlink,image,media,table,code,separator,asciimath,asciimathcharmap,asciisvg",
+	theme_advanced_buttons3 : "",
+	theme_advanced_fonts : "Arial=arial,helvetica,sans-serif,Courier New=courier new,courier,monospace,Georgia=georgia,times new roman,times,serif,Tahoma=tahoma,arial,helvetica,sans-serif,Times=times new roman,times,serif,Verdana=verdana,arial,helvetica,sans-serif",
+	theme_advanced_toolbar_location : "top",
+	theme_advanced_toolbar_align : "left",
+	theme_advanced_resizing: false,
+	theme_advanced_statusbar_location : "bottom",
+	plugins : 'asciimath,asciisvg,table,inlinepopups,media,autoresize',
+	autoresize_min_height : "150",
+	setup : function(ed) {
+	    ed.onKeyUp.add(function(ed, e) {
+	        //console.debug('Key up event: ' + e.keyCode);
+	        var textarea_id = tinyMCE.activeEditor.editorId;
+	        var id_array = textarea_id.split("_");
+	        var question_content = tinyMCE.get(textarea_id).getContent();
+	        //alert(textarea_id);
+	        $('#preview_question_0101').html(question_content);
+	        MathJax.Hub.Queue(["Typeset",MathJax.Hub,"preview_question_0101"]);
+	        //document.getElementByClass('question_content_trad').innerHTML = question_content;
+	    });
+	},
+	AScgiloc : 'http://www.imathas.com/editordemo/php/svgimg.php',			      //change me  
+	ASdloc : 'http://www.imathas.com/editordemo/jscripts/tiny_mce/plugins/asciisvg/js/d.svg',  //change me  	
+	content_css : "../public/css/content.css"		       
+});	
+</script>
+<script src="../public/js/preview.js"></script>
+<script src="../public/js/ajax_slide_animation.js"></script>
+<script src="../public/js/auto_add_div.js"></script>
+<div class="tab-pane fade active in" id="<?php echo $type1  ?>">
+	<div class="span6">
+		<div class="page-header">
+			<h4>Nội dung câu hỏi</h4>
+		</div>
+		<form style="margin: 0;">
+			<fieldset>
+				<textarea class="editor" id="question_content_<?php echo $type1  ?>" cols="20"
+					rows="20" placeholder="Nội dung câu hỏi"><?php if(isset($question_content) && $question_content!=null) echo $question_content ?></textarea>
+			</fieldset>
+		</form>
+		<?php echo $tag_area ?>
+		<ul id="myTab<?php echo $type1  ?>" class="nav nav-tabs">
+			<li class="active"><a href="#detailed_answer_<?php echo $type1  ?>"
+				data-toggle="tab">Bài giải chi tiết</a></li>
+			<li class=""><a id="tab_question" href="#hint_<?php echo $type1  ?>"
+				data-toggle="tab">Gợi ý</a></li>
+		</ul>
+		<div id="myTab<?php echo $type1  ?>Content" class="tab-content">
+			<div class="tab-pane fade active in" id="detailed_answer_<?php echo $type1  ?>">
+				<form id="list_detail_answers_<?php echo $type1  ?>">
+					<?php
+						function change_to_letter($number){
+							switch($number){
+								case 1:
+									return 'A';
+									break;
+								case 2:
+									return 'B';
+									break;
+								case 3:
+									return 'C';
+									break;
+								case 4:
+									return 'D';
+									break;
+							}						
+						}
+						$i = 0;
+						if(isset($detailed_answers)){
+							foreach($detailed_answers as $row){
+								$i++;
+					?>
+					<fieldset id="<?php echo $i ?>_<?php echo $type1  ?>">						
+						<textarea id="detailed_answer<?php echo $i ?>_<?php echo $type1  ?>"
+							class="detailed_answer detailed_answer_<?php echo $type1  ?>"
+							onkeyup="add_more_choice(this,<?php echo $i ?>,1,'<?php echo $type1  ?>')"
+							placeholder="Bước <?php echo $i ?>"><?php if(isset($row[$i-1]) && $row[$i-1]!=null) print $row[$i-1] ?></textarea>						
+					</fieldset>
+					<?php								
+							}
+						}
+					?>
+				</form>
+			</div>
+			<div class="tab-pane fade" id="hint_<?php echo $type1  ?>">
+				<form id="list_hints_<?php echo $type1  ?>">
+					<?php
+						$i = 0;
+						if(isset($hints)){
+						foreach($hints as $row){
+							$i++;
+					?>
+					<fieldset id="<?php echo $i ?>_<?php echo $type1  ?>">						
+						<textarea id="hint1_<?php echo $type1  ?>" class="hint hint_<?php echo $type1  ?>"
+							onkeyup="add_more_choice(this,1,2,'<?php echo $type1  ?>')" placeholder="Gợi ý 1"><?php if(isset($row[$i-1]) && $row[$i-1]!=null) print $row[$i-1] ?></textarea>						
+					</fieldset>
+					<?php
+							}
+						}
+					?>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="span6">
+		<div class="page-header" style="margin-bottom: 20px;">
+			<h4>Đáp án</h4>
+		</div>
+		<div id="preview_area">
+			<div id="preview_question_<?php echo $type1  ?>">	
+				<?php if(isset($question_content) && $question_content!=null) echo $question_content ?>						
+			</div>
+			<div id="preview_choices_<?php echo $type1  ?>">
+				<?php
+					$i = 0;
+					foreach($choices as $row){
+						$i++;
+				?>				
+				<div id="choice<?php echo $i ?>_<?php echo $type1  ?>_width"><?php echo change_to_letter($i).". ".$row['content'] ?></div>
+				<?php
+					}
+				?>							
+			</div>
+		</div>
+		<form class="form-inline" id="list_answers_<?php echo $type1  ?>">
+			<?php
+				$i = 0;
+				foreach($choices as $row){
+					$i++;
+			?>
+			<fieldset id="<?php echo $i ?>_<?php echo $type1  ?>">
+				<label for="choice<?php echo $i ?>_<?php echo $type1  ?>">Lựa chọn A</label>
+				<textarea id="choice<?php echo $i ?>_<?php echo $type1  ?>" class="choice_<?php echo $type1  ?> choice"><?php echo $row['content'] ?></textarea>
+				<div class="multichoice_radio toggle btn btn-primary <?php if($row['is_right']==0) echo 'off' ?>" data-toggle="toggle">
+					<input type="checkbox" id="choice<?php echo $i ?>_right_<?php echo $type1  ?>"
+						<?php if($row['is_right']==1) echo 'checked'?> class="choice_right_<?php echo $type1  ?>">
+					<div class="toggle-group">
+						<label class="toggle-on btn btn-primary">Đúng</label> <label
+							class="toggle-off btn btn-success active">Sai</label> <span
+							class="toggle-handle btn"></span>
+					</div>
+				</div>
+				<br> <label for="explain<?php echo $i ?>_<?php echo $type1  ?>">Giải thích</label>
+				<textarea id="explain<?php echo $i ?>_<?php echo $type1  ?>" class="explain_<?php echo $type1  ?>"
+					placeholder="Giải thích"><?php echo $row['explaination']; ?></textarea>
+			</fieldset>
+			<?php
+				}
+			?>			
+		</form>
+		<button class="btn btn-large btn-primary"
+			style="display: block; margin-top: 20px;" type="button"
+			onclick="edit_question('<?php echo $type1  ?>',<?php echo $question_id ?>)">Sửa câu hỏi</button>
+	</div>
+</div>

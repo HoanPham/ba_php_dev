@@ -19,8 +19,9 @@
 	</thead>
 	<tbody>
 		<?php
-			foreach($list_questions as $row){
-			?>
+			if(isset($list_questions) && $list_questions!=false){
+				foreach($list_questions as $row){
+		?>
 		<tr>
 			<td><?php echo $row['grade'] ?></td>
 			<td><?php echo $row['subject'] ?></td>
@@ -30,23 +31,25 @@
 			<td><?php echo ($row['hint']) ? "Có" : "Không" ?></td>
 			<td><?php echo $row['date_created'] ?></td>
 			<td><?php echo $row['date_edited'] ?></td>
-			<td><a href="javascript:void()" onclick="edit('<?php echo $row['id'] ?>')">Edit</a></td>
+			<td><a href="javascript:void()" onclick="edit('<?php echo $row['id'] ?>','<?php echo $row['question_type_id'] ?>')">Edit</a></td>
 			<td><a href="javascript:void()" onclick="preview('<?php echo $row['id'] ?>')">Preview</a></td>
 		</tr>
 		<?php
+				}
 			}
 			?>			
 	</tbody>
 </table>
 <script>
-$('#create_question_slide').click(function() {
-	/*
-    $('.box').each( function() {
-        if ($(this).offset().left < 0) {
-            $(this).css("left", "150%");
-        }
-    });	*/
-    	$("#manage_questions").animate({
+$('#create_question_slide').click(function() {	
+	$("#create_edit_question").load("../teacher/question/load_data_create_question");
+	$("#create_question").css({
+	      "position": "relative"
+	});
+	$("#manage_questions").css({
+	      "position": "absolute"
+	});
+    $("#manage_questions").animate({
          left: '-75%'
      }, 500);
  

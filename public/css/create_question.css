@@ -59,17 +59,40 @@ textarea.hint,textarea.detailed_answer{
 width:97%;
 }
 .box {
-    position: relative;
+    position: absolute;
     width: 100%;    
     left: 50%;
-    /*height:auto;*/
-    min-height:606px;
+    height:auto;
+    /*min-height:606px;*/
     /*top: 100px;*/
     margin-left: -50%;
 }
-#manage_questions{
-	position:absolute;
-}
 .row-fluid .span10 {
-	width: 84%;
+	width: 85.4%;
+	min-height:606px;
+	overflow:hidden;
 }
+#manage_questions{
+	position:relative;
+}
+/*
+.row-fluid .span10:hover{
+	overflow-y:auto;
+}
+
+.row-fluid .span10::-webkit-scrollbar {
+    width: 12px;
+}
+.row-fluid .span10::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.row-fluid .span10::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #eee; 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+*/

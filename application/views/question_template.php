@@ -24,7 +24,7 @@
 					echo $sidebar;
 				?>
 			</div>
-			<div class="span10" style="min-height:606px;overflow-x:hidden;">
+			<div class="span10">
 				<div id="manage_questions" class="row-fluid show-grid box"> 
 					<div id="list_question" class="span12" style="margin-left:10px;">
 						<?php if(isset($manage_question) && $manage_question!=NULL) 
@@ -33,7 +33,7 @@
 					</div>
     			</div>
     			<div id="create_question" class="row-fluid show-grid box" style="left:-75%;">
-    				<div class="span12" style="margin-left:10px;">
+    				<div id="create_id_question" class="span12" style="margin-left:10px;">
     					<?php if(isset($tab_question_type) && $tab_question_type!=NULL) 
 							echo $tab_question_type;
 						?>
@@ -45,7 +45,7 @@
 								<div id="myTab_multiple_choiceContent" class="tab-content">
 									<?php if(isset($multichoice_trad) && $multichoice_trad!=NULL) 
 										echo $multichoice_trad;
-									?>
+									?>									
 									<?php if(isset($multichoice_fullpoint) && $multichoice_fullpoint!=NULL) 
 										echo $multichoice_fullpoint;
 									?>

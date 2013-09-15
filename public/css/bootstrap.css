@@ -7,7 +7,11 @@
  *
  * Designed and built with all the love in the world by @mdo and @fat.
  */
-
+@media screen and (min-width: 480px) and (max-width: 1337px) {
+    .g-m-p, .g-m-p-corner {
+        left: 250px;
+    }
+}
 .clearfix {
   *zoom: 1;
 }
@@ -2006,7 +2010,7 @@ table {
 }
 
 .table {
-  width: 100%;
+  width: 99%;
   margin-bottom: 20px;
 }
 
@@ -2024,7 +2028,8 @@ table {
 }
 
 .table thead th {
-  vertical-align: bottom;
+  vertical-align: middle;
+  text-align:center;
 }
 
 .table caption + thead tr:first-child th,

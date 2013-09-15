@@ -24,8 +24,8 @@
 				?>
 			</div>
 			<div class="span10">
-				<div id="manage_questions" class="row-fluid show-grid box"> 
-					<div id="list_question" class="span12" style="margin-left:10px;">
+				<div id="manage_questions" class="row-fluid show-grid box"> 					
+					<div class="span12" style="margin-left:10px;">						
 						<?php if(isset($manage_question) && $manage_question!=NULL) 
 							echo $manage_question;
 						?>

@@ -187,7 +187,34 @@
     	echo "<script src=\"".base_url()."public/js/multichoice_constraints.js\"></script>";    	
     	echo "<script>$('textarea').autosize(); </script>";
     } 
-        
+
+    public function load_data_preview_question(){
+    	/* Load common data */
+    	$this->load_common_data();
+    	$this->data['question_id'] = $this->input->post('question_id');
+    	$this->data['type_id'] = $this->input->post('question_type_id');
+    	
+    	/* Load question data */
+    	$specific_questions = $this->teacher_model->getSpecificQuestion($this->input->post('question_id'));
+    	foreach($specific_questions as $row);
+    	$this->data['question_content'] = $row['question_content'];
+    	$this->data['subject_id'] = $row['subject_id'];
+    	$this->data['grade_id'] = $row['grade_id'];
+    	$this->data['curriculum_type_id'] = $row['curriculum_type_id'];
+    	$this->data['shuffle'] = $row['shuffle_or_fix'];
+    	$this->data['no_right_choice'] = $row['no_right_choice'];
+    	if($row['no_right_choice']==1) $this->data['question_right_answer'] = $this->teacher_model->getQuestionRightAnswer($this->input->post('question_id'));
+    	$this->data['hints'] = explode("$$$", $row['hint']);
+    	$this->data['detailed_answers'] = explode("$$$", $row['answer']);
+    	
+    	/* Load question's choices data */
+    	$this->data['choices'] = $this->teacher_model->getSpecificQuestionMultichoices($this->input->post('question_id'));        	    	
+    	
+    	/* Render view */
+    	$this->load->view('question/modal_preview_question.html',$this->data); 
+    	echo "<script src=\"".base_url()."public/js/config.js\"></script>";   	
+    }
+    
     public function parse_data(){
     	// Parser data 
     	$this->template->parse_view("sidebar","sidebar.html",$this->data);

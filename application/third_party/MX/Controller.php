@@ -65,7 +65,7 @@ class MX_Controller
     	$this->template->add_css('public/css/jquery-ui.css');
     	$this->template->add_js('public/js/jquery.js');
     	$this->template->add_js('public/js/jquery-ui.js');
-    	$this->template->add_js('public/js/jquery.validate.js');
+    	//$this->template->add_js('public/js/jquery.validate.js');
     	$this->template->add_js('public/js/bootstrap.min.js');
     	$this->template->add_js('public/js/tiny_mce/tiny_mce.js');
     	

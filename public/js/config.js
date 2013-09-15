@@ -59,5 +59,6 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
 var AMTcgiloc = "http://www.imathas.com/cgi-bin/mimetex.cgi";  //change me
 $(document).ready(function(){
 	MathJax.Hub.Queue(["Typeset",MathJax.Hub,"preview_area"]);
+	MathJax.Hub.Queue(["Typeset",MathJax.Hub,"modal_preview"]);
     $('textarea').autosize();   
 });	

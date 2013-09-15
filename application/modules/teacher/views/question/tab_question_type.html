@@ -29,7 +29,7 @@
 		<?php
     		foreach($list_subjects as $row){
 			?>
-		<option value="<?php echo $row['id'] ?>" <?php if($row['subject_name']=="Hóa học" || (isset($grade_id) && $row['id'] == $subject_id)) echo "selected"; ?>>
+		<option value="<?php echo $row['id'] ?>" <?php if($row['subject_name']=="Hóa học" || (isset($subject_id) && $row['id'] == $subject_id)) echo "selected"; ?>>
 			<?php echo $row['subject_name'] ?></option>
 		<?php
     		}

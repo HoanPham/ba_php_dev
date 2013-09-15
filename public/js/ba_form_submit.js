@@ -19,7 +19,6 @@ function create_question(type){
 	}
 	if($("#suffle_answer").is(':checked') || !$(this).closest('div').hasClass("off")) var suffle = 1;
 	else var suffle = 0;
-	//var i = 0;
 	$(".detailed_answer_"+type).each(function (i) {	
 		if(i==0) var myStr_Detail = $(this).val();
 		var myStr_Detail = '"""'+$(this).val();
@@ -29,7 +28,6 @@ function create_question(type){
 		if(i==0) var myStr_Hint = $(this).val();
 		else var myStr_Hint = '"""'+$(this).val();
 		hint_array.push(myStr_Hint);
-		//}
 	});
 	$(".choice_"+type).each(function (i) {
 		if(i==0) var myStr_Choice = $(this).val();
@@ -148,8 +146,8 @@ function edit_question(type,question_id){
 	ajax.send(str);	
 	ajax.onreadystatechange = function() {
 		if (ajax.readyState == 4) {
-			$("#list_question").load("../teacher/question/load_data_manage_question");
-			$("#create_edit_question").load("../teacher/question/load_data_create_question");
+			/*
+			$("#create_edit_question").load("../teacher/question/load_data_create_question");					
 			
 			$("#manage_questions").css({
 			      "position": "relative"
@@ -171,9 +169,15 @@ function edit_question(type,question_id){
 		         $("#create_question").css({
 				      "position": "absolute"
 				});
-		     }	     
-			//var textarea_id = tinyMCE.activeEditor.editorId;
-			//tinymce.get(textarea_id).setContent(''); 		
+		     }	 
+		     */
+			$("#list_question").load("../teacher/question/load_data_manage_question");
+			if(ajax.responseText.trim() === "Success") window.location = "../teacher/question";
+			else{
+				document.getElementById('error').style.display = "inline-block";
+				$('.alert').addClass('fade in');
+				$('.alert').addClass('in');
+			}
 		}
 	}	
 }

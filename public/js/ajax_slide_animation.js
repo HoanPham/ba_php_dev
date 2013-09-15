@@ -44,6 +44,7 @@ $(document).ready(function(){
 	     }	     
 	});		
 });
+
 function edit(id_question,question_type_id){
 	var array = {};
     array['question_id'] = id_question;

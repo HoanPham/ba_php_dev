@@ -28,6 +28,7 @@ tinyMCE.init({
 	ASdloc : 'http://www.imathas.com/editordemo/jscripts/tiny_mce/plugins/asciisvg/js/d.svg',  //change me  	
 	content_css : "../public/css/content.css"		       
 });
+
 /* MathJax config */
 MathJax.Hub.Config({
 	tex2jax: {inlineMath: [["$","$"]]},

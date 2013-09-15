@@ -58,7 +58,7 @@ class Teacher_model extends CI_Model {
     }
     
     public function getSpecificQuestion($id){
-    	$this->db->select('grade_id,subject_id,curriculum_type_id,v12.id as id,da.answer as answer,q_hints.hint as hint,q_types.name as question_type,q_types.id as question_type_id,date_created,date_edited,shuffle_or_fix,v12.content as question_content');	
+    	$this->db->select('no_right_choice,grade_id,subject_id,curriculum_type_id,v12.id as id,da.answer as answer,q_hints.hint as hint,q_types.name as question_type,q_types.id as question_type_id,date_created,date_edited,shuffle_or_fix,v12.content as question_content');	
     	$this->db->from('v12_question as v12');
     	$this->db->join('grades as g','g.id = v12.grade_id');
     	$this->db->join('subjects as s','s.id = v12.subject_id');
@@ -83,6 +83,13 @@ class Teacher_model extends CI_Model {
     		return $query->result_array();
     	}
     	else return false;
+    }
+    
+    public function getQuestionRightAnswer($id){
+    	$this->db->where('question_id',$id);
+    	$query = $this->db->get('question_right_answers');
+    	if($query->num_rows() > 0) return $query->row_array();
+    	else return false;	
     }
     
     public function create_class($name,$subject,$grade,$goal,$expected_finish){

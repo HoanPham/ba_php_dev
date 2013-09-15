@@ -47,18 +47,6 @@ $(document).ready(function(){
 			$(".right_answer_input_"+array[2]).css({"display":"none"});
 		}
 	});
-	/*
-	$(".button_show_right_answer").click(function(){
-		var checkbox = $(this).find('input');
-		var array = checkbox.attr('id').split("_");
-		if(!$(this).hasClass("off")){			
-			$(".right_answer_input_"+array[2]).css({"display":"none"});
-		}
-		else if($(this).hasClass("off") && !$(this).hasClass("disabled")){
-			$(".right_answer_input_"+array[2]).css({"display":"block"});
-		}
-	});
-	*/
 	$(".no_right_answer_toggle").click(function(){
 		var checkbox = $(this).find('input');
 		var array = checkbox.attr('id').split("_");

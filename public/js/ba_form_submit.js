@@ -149,7 +149,7 @@ function edit_question(type,question_id){
 	ajax.onreadystatechange = function() {
 		if (ajax.readyState == 4) {
 			$("#list_question").load("../teacher/question/load_data_manage_question");
-			//$("#create_edit_question").load("../teacher/question/load_data_create_question");
+			$("#create_edit_question").load("../teacher/question/load_data_create_question");
 			
 			$("#manage_questions").css({
 			      "position": "relative"
@@ -174,16 +174,6 @@ function edit_question(type,question_id){
 		     }	     
 			//var textarea_id = tinyMCE.activeEditor.editorId;
 			//tinymce.get(textarea_id).setContent(''); 		
-			if(ajax.responseText.trim() === "Failed"){
-				document.getElementById('error').style.display = "inline-block";
-				$('.alert').addClass('fade in');
-				$('.alert').addClass('in');				
-			}
-			else{
-				document.getElementById('alert').style.display = "inline-block";
-				$('.alert').addClass('fade');
-				$('.alert').addClass('in');
-			}
 		}
 	}	
 }

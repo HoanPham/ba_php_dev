@@ -64,39 +64,3 @@
 					onclick="create_question('<?php echo $type7 ?>')">Nhập câu hỏi</button>
 	</div>
 </div>
-<!-- MathJax -->
-<script type="text/x-mathjax-config">
-	MathJax.Hub.Config({
-   		tex2jax: {inlineMath: [["$","$"]]},
-   		displayAlign: "center",
-   		displayIndent: "0.1em",
-		"HTML-CSS": {
-			scale: 88,
-			minScaleAdjust: 88,
-			availableFonts: ["TeX"],
-			showMathMenu: false
-  		},
- 		MMLorHTML: {prefer: "HTML"}
-  	});
-	MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
-	  var VARIANT = MathJax.OutputJax["HTML-CSS"].FONTDATA.VARIANT;
-	  VARIANT["normal"].fonts.unshift("MathJax_Main");
-	  VARIANT["bold"].fonts.unshift("MathJax_Main");
-	  VARIANT["italic"].fonts.unshift("MathJax_Main");
-	  VARIANT["-tex-mathit"].fonts.unshift("MathJax_Main-italic");
-	});
-	MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
-	  var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;
-	  VARIANT["normal"].fonts.unshift("MathJax_Main");
-	  VARIANT["bold"].fonts.unshift("MathJax_Main");
-	  VARIANT["italic"].fonts.unshift("MathJax_Main");
-	  VARIANT["-tex-mathit"].fonts.unshift("MathJax_Main-italic");
-	});
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML.js"></script>
-<script type="text/javascript">
-	var AMTcgiloc = "http://www.imathas.com/cgi-bin/mimetex.cgi";  //change me
-	$(document).ready(function(){
-	    $('textarea').autosize();   
-	});	
-</script>

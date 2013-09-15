@@ -24,25 +24,32 @@
         
         /* Add third-party js */
         $this->template->add_js('public/js/jquery.autosize.js');
-        $this->template->add_js('public/js/tinymce_init.js');
+        $this->template->add_js('public/js/config.js');
         $this->template->add_js('public/js/bootstrap-toggle.min.js');
         $this->template->add_js('public/js/tiny_mce/plugins/asciimath/js/ASCIIMathMLwFallback.js');
         //$this->load->model('utilities/utility_model');  
     }
-    
-    public function index(){    	        	     
-    	//$this->data['list_classes'] = $this->teacher_model->getListClasses();
+    public function load_common_data(){
     	$this->data['list_subjects'] = $this->teacher_model->getListSubjects();
     	$this->data['list_grades'] = $this->teacher_model->getListGrades();
     	$this->data['list_curriculum'] = $this->teacher_model->getListCurriculum();
     	$this->data['tag_area'] = $this->teacher_model->show_create_tag_area();
-    	$this->data['list_question_types'] = $this->teacher_model->getListQuestionTypes();    	
-	    $this->data['list_questions'] = $this->teacher_model->getListQuestions();
+    	$this->data['list_question_types'] = $this->teacher_model->getListQuestionTypes();
     	$i = 0;
     	foreach($this->data['list_question_types'] as $row){
     		$this->data['type'.$i] = $row['id'];
     		$i++;
-    	}    	
+    	}
+    }
+    
+    public function index(){   
+    	/* Load common data */ 	        	     
+    	$this->load_common_data();
+
+    	/* Load questions list */
+	    $this->data['list_questions'] = $this->teacher_model->getListQuestions();  
+
+	    /* Render template view */
     	$this->parse_data(); 
     }  
     
@@ -114,46 +121,43 @@
     }
 
     public function load_data_manage_question(){
+    	/* Load questions list */
     	$this->data['list_questions'] = $this->teacher_model->getListQuestions();
-    	$this->load->view("question/manage_question.html",$this->data);
-    	//$this->template->render();
+
+    	/* Render template view */
+    	$this->template->write_view("manage_question","question/manage_question.html",$this->data,TRUE);    	
+    	echo $this->template->render('manage_question');
+    	echo "<script src=\"".base_url()."public/js/ajax_slide_animation.js\"></script>"; 
     }
     
     public function load_data_create_question(){
-    	$this->data['list_subjects'] = $this->teacher_model->getListSubjects();
-    	$this->data['list_grades'] = $this->teacher_model->getListGrades();
-    	$this->data['list_curriculum'] = $this->teacher_model->getListCurriculum();
-    	$this->data['tag_area'] = $this->teacher_model->show_create_tag_area();
-    	$this->data['list_question_types'] = $this->teacher_model->getListQuestionTypes();
-    	$i = 0;
-    	foreach($this->data['list_question_types'] as $row){
-    		$this->data['type'.$i] = $row['id'];
-    		$i++;
-    	}    
-    	/*	
-    	$this->load->view('question/tab_question_type.html',$this->data);
-		$this->load->view('question/tab_multichoice_question_type.html',$this->data);
-		$this->load->view('question/multichoice_trad.html',$this->data);
-		$this->load->view('question/multichoice_fullpoint.html',$this->data);
-		$this->load->view('question/multichoice_partpoint.html',$this->data);
-		$this->load->view('question/short_answer.html',$this->data);
-		$this->load->view('question/cloze.html',$this->data);
-		*/
-		echo "test";		
+    	/* Load common data */
+    	$this->load_common_data();
+    	
+    	/* Render template view */
+    	$this->template->write_view('tab_question_type','question/tab_question_type.html',$this->data,TRUE);
+    	$this->template->write_view('tab_multichoice_question_type','question/tab_multichoice_question_type.html',$this->data,TRUE);
+    	$this->template->write_view('multichoice_trad','question/multichoice_trad.html',$this->data,TRUE);    	    
+    	echo $this->template->render('tab_question_type');
+    	echo $this->template->render('tab_multichoice_question_type');
+    	echo $this->template->render('multichoice_trad');   
+    	echo "<script src=\"".base_url()."public/js/ajax_slide_animation.js\"></script>"; 	
+    	echo "<script src=\"".base_url()."public/js/config.js\"></script>";
+    	echo "<script src=\"".base_url()."public/js/auto_add_div.js\"></script>";
+    	echo "<script src=\"".base_url()."public/js/preview.js\"></script>";
+    	echo "<script src=\"".base_url()."public/js/multichoice_constraints.js\"></script>";
+    	echo "<script>$('textarea').autosize(); </script>";
+		//echo "test";		
 		//$this->template->render();
     }
     
     public function load_data_edit_question(){
-    	$this->data['list_subjects'] = $this->teacher_model->getListSubjects();
-    	$this->data['list_grades'] = $this->teacher_model->getListGrades();
-    	$this->data['list_curriculum'] = $this->teacher_model->getListCurriculum();
-    	$this->data['tag_area'] = $this->teacher_model->show_create_tag_area();
-    	$this->data['list_question_types'] = $this->teacher_model->getListQuestionTypes(); 
-    	$i = 0;
-    	foreach($this->data['list_question_types'] as $row){
-    		$this->data['type'.$i] = $row['id'];
-    		$i++;
-    	} 
+    	/* Load common data */
+    	$this->load_common_data();
+    	$this->data['question_id'] = $this->input->post('question_id');
+    	$this->data['type_id'] = $this->input->post('question_type_id');
+    	
+    	/* Load question data */
     	$specific_questions = $this->teacher_model->getSpecificQuestion($this->input->post('question_id'));
     	foreach($specific_questions as $row);
     	$this->data['question_content'] = $row['question_content'];
@@ -161,16 +165,27 @@
     	$this->data['grade_id'] = $row['grade_id'];
     	$this->data['curriculum_type_id'] = $row['curriculum_type_id'];
     	$this->data['shuffle'] = $row['shuffle_or_fix'];
+    	$this->data['no_right_choice'] = $row['no_right_choice'];
+    	if($row['no_right_choice']==1) $this->data['question_right_answer'] = $this->teacher_model->getQuestionRightAnswer($this->input->post('question_id'));
     	$this->data['hints'] = explode("$$$", $row['hint']);
     	$this->data['detailed_answers'] = explode("$$$", $row['answer']);
-    	$this->data['choices'] = $this->teacher_model->getSpecificQuestionMultichoices($this->input->post('question_id'));    
-    	$this->data['type_id'] = $this->input->post('question_type_id');
-    	$this->data['question_id'] = $this->input->post('question_id');
-    	$this->load->view('question/tab_question_type.html',$this->data);
-    	$this->load->view('question/tab_multichoice_question_type.html',$this->data);
-    	$this->load->view('question/multichoice_trad_edit.html',$this->data);
-    	//$this->load->view("question/multichoice_trad_edit.html",$this->data);
-    	//$this->template->render();
+    	
+    	/* Load question's choices data */
+    	$this->data['choices'] = $this->teacher_model->getSpecificQuestionMultichoices($this->input->post('question_id'));        	    	
+    	
+    	/* Render template view */
+    	$this->template->write_view('tab_question_type','question/tab_question_type.html',$this->data,TRUE);
+    	$this->template->write_view('tab_multichoice_question_type','question/tab_multichoice_question_type.html',$this->data,TRUE);
+    	$this->template->write_view('multichoice_trad','question/multichoice_trad_edit.html',$this->data,TRUE);    	    
+    	echo $this->template->render('tab_question_type');
+    	echo $this->template->render('tab_multichoice_question_type');
+    	echo $this->template->render('multichoice_trad');   
+    	echo "<script src=\"".base_url()."public/js/ajax_slide_animation.js\"></script>"; 	
+    	echo "<script src=\"".base_url()."public/js/config.js\"></script>";
+    	echo "<script src=\"".base_url()."public/js/auto_add_div.js\"></script>";
+    	echo "<script src=\"".base_url()."public/js/preview.js\"></script>";
+    	echo "<script src=\"".base_url()."public/js/multichoice_constraints.js\"></script>";    	
+    	echo "<script>$('textarea').autosize(); </script>";
     } 
         
     public function parse_data(){

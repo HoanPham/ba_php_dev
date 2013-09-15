@@ -3,9 +3,8 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<?php echo $_meta; ?>
-	<?php echo $_styles; ?>
-	<?php echo $_scripts; ?>
-	<?php echo $_title; ?>		
+	<?php echo $_styles; ?>	
+	<?php echo $_title; ?>			
 </head>
 <body>
 	<div class="navbar navbar-inverse navbar-fixed-top">
@@ -159,5 +158,7 @@
 			</div>
 		</div>
 	</footer>
+	<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML.js"></script>
+	<?php echo $_scripts; ?>				
 </body>
 </html>

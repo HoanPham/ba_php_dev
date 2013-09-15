@@ -1,4 +1,3 @@
-var hidden = $('<span id="hidden" style="display:none;"></span>');
 $(document).ready(function(){
 	$('textarea.choice').focusin(function(){
 		var array = $(this).attr('id').split("_");
@@ -17,6 +16,6 @@ $(document).ready(function(){
 	    	else $("#choice"+order+"_"+array[1]+"_width").html(order+". "+$(this).val());
 	    }
 	    else if($(this).val.length == 0) $("#choice"+order+"_"+array[1]+"_width").html(" ");
-	    MathJax.Hub.Queue(["Typeset",MathJax.Hub,"choice"+order+"_"+array[1]+"_width"]);
+	    MathJax.Hub.Queue(["Typeset",MathJax.Hub,"preview_area"]);
 	});	
 });

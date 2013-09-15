@@ -39,28 +39,4 @@
 			}
 			?>			
 	</tbody>
-</table>
-<script>
-$('#create_question_slide').click(function() {	
-	$("#create_edit_question").load("../teacher/question/load_data_create_question");
-	$("#create_question").css({
-	      "position": "relative"
-	});
-	$("#manage_questions").css({
-	      "position": "absolute"
-	});
-    $("#manage_questions").animate({
-         left: '-75%'
-     }, 500);
- 
-     if ($("#manage_questions").next().length > 0) {
-         $("#manage_questions").next().animate({
-             left: '50%'
-         }, 500);
-     } else {
-         $("#manage_questions").prevAll().last().animate({
-             left: '50%'
-         }, 500);
-     }
-});
-</script>		
+</table>	

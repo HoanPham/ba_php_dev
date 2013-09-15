@@ -1,6 +1,5 @@
 $(document).ready(function(){	
 	$('#create_question_slide').click(function() {
-		$("#create_edit_question").load("../teacher/question/load_data_create_question");
 		$("#create_question").css({
 		      "position": "relative"
 		});

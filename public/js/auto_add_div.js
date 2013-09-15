@@ -100,41 +100,7 @@ function add_more_choice(val, id, object, question_type) {
 	}
 	if (len != 0 && document.getElementById(object_id + choices + question_type) == null) {
 		var formID = document.getElementById(form_id + question_type);
-		formID.appendChild(newFieldset);
-		$('textarea').autosize(); 
-		$('.toggle.btn.no_right_answer').bind("click",function(){
-			var checkbox = $(this).find('input');
-			if(!$(this).hasClass('off')){
-				enable_no_right_checkbox(checkbox.attr('class'),checkbox.attr('id'));
-			}
-			else if($(this).hasClass('off')){
-				var array = checkbox.attr('id').split("_");
-				$(".no_right_answer_toggle_"+array[2]).attr('data-toggle','toggle');
-				$(".no_right_answer_toggle_"+array[2]).addClass('off');
-				$(".button_show_right_answer_"+array[2]).addClass('disabled off');
-				$(".button_show_right_answer_"+array[2]).removeAttr('data-toggle');
-				$(".right_answer_input_"+array[2]).css({"display":"none"});
-			}									
-		});
-		$('textarea.choice').focusin(function(){
-			var array = $(this).attr('id').split("_");
-		    var order = array[0].substr(6,1);
-		    if(parseInt(order)>3){
-		    	if($("#choice"+order+"_"+array[1]+"_width").length==0){
-		    		$('#preview_choices_'+array[1]).append("<div id=\"choice"+order+"_"+array[1]+"_width\"></div>");
-		    	}
-		    }		
-		}); 
-		$('textarea.choice').keyup(function(){  		
-		    var array = $(this).attr('id').split("_");
-		    var order = array[0].substr(6,1);	    
-		    if($(this).val != ""){
-		    	if(array[1]=="0101") $("#choice"+order+"_"+array[1]+"_width").html(String.fromCharCode(65 + (order-1))+". "+$(this).val());
-		    	else $("#choice"+order+"_"+array[1]+"_width").html(order+". "+$(this).val());
-		    }
-		    else if($(this).val === "") $("#choice"+order+"_"+array[1]+"_width").empty();
-		    MathJax.Hub.Queue(["Typeset",MathJax.Hub,"choice"+order+"_"+array[1]+"_width"]);
-		});
+		formID.appendChild(newFieldset);		
 	}
 	if (len == 0
 			&& document.getElementById(object_id + choices + question_type)

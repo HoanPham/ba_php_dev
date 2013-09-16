@@ -77,11 +77,12 @@
     	$question_content = $this->input->post('question_content');
     	$detailed_answer_array = explode(',"""',$this->input->post('detailed_answer_array'));
     	$hint_array = explode(',"""', $this->input->post('hint_array'));
-    	$choice_array = explode(',"""',$this->input->post('choice_array'));
+    	$choice_array = $this->utf8Urldecode($this->input->post('choice_array'));
+    	$choice_array = explode(',"""',$choice_array);
     	$choice_right_array = explode(',',$this->input->post('choice_right_array'));
     	$explain_array = explode(',"""',$this->input->post('explain_array'));
     	$point_array = explode(',',$this->input->post('point_array'));   	
-    	$question_content = $this->utf8Urldecode($question_content);
+    	$question_content = $this->utf8Urldecode($question_content);    	
     	$question_id = $this->teacher_model->create_question($question_type,$no_right_choice,$right_answer,$subject,$grade,$curriculum,$suffle,$question_content,$detailed_answer_array,$hint_array,$choice_array,$choice_right_array,$explain_array,$point_array);    	
     	/*  	
     	$orders = range(0, count($choice_array)-1);

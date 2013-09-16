@@ -56,6 +56,7 @@ function create_question(type){
 	}
 	var textarea_id = tinyMCE.activeEditor.editorId;
 	var question_content = encodeURIComponent(tinyMCE.get(textarea_id).getContent());	
+	var choice_array = encodeURIComponent(choice_array);
 	var str = "type=" + type + "&no_right_choice=" + no_right_choice + "&right_answer" + right_answer + "&subject=" + subject + "&grade=" + grade + "&curriculum=" + curriculum + "&suffle=" + suffle + "&question_content=" + question_content + "&detailed_answer_array=" + detailed_answer_array + "&hint_array=" + hint_array + "&choice_array=" + choice_array + "&choice_right_array=" + choice_right_array + "&explain_array=" + explain_array + "&point_array=" + point_array;			
 	ajax.open("POST", "../teacher/question/create_question", true);
 	ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");	

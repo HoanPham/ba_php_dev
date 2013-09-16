@@ -16,7 +16,9 @@ $(document).ready(function(){
 	    	else $("#choice"+order+"_"+array[1]+"_width").html(order+". "+$(this).val());
 	    }
 	    else if($(this).val.length == 0) $("#choice"+order+"_"+array[1]+"_width").html(" ");
-	    MathJax.Hub.Queue(["Typeset",MathJax.Hub,"preview_area"]);
+	    $(".choice").bind("idle.idleTimer", function(){
+	    	MathJax.Hub.Queue(["Typeset",MathJax.Hub,"preview_area"]);
+	    });
 	});	
 	$('.btn.quick_preview').click(function(){
 		if($(this).hasClass('off')){			
@@ -28,14 +30,14 @@ $(document).ready(function(){
 			$(".show_modal_preview").css({"display":"none"});
 			$(".delete").css({"display":"none"});
 			$("#list_questions").css({"width":"51%","float":"left"});
-			$("#quick_preview_block").css({"display":"block","width":"48%","float":"right"});
+			$("#quick_preview_block").css({"display":"block","width":"41%","right":"0","position":"fixed"});
 		}
 		else{
 			$("#quick_preview_block").css({"display":"none"});
 			$("#list_questions").load("../teacher/question/load_data_manage_question");
-			$("#list_questions").css({"width":"100%"});
+			$("#list_questions").css({"width":"100%"});								
 		}
-	});
+	});	
 });
 function show_modal(question_id,question_type_id){
 	var array = {};

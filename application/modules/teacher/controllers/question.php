@@ -24,6 +24,7 @@
         
         /* Add third-party js */
         $this->template->add_js('public/js/jquery.autosize.js');
+        $this->template->add_js('public/js/idle-timer.js');
         $this->template->add_js('public/js/config.js');
         $this->template->add_js('public/js/bootstrap-toggle.min.js');
         $this->template->add_js('public/js/tiny_mce/plugins/asciimath/js/ASCIIMathMLwFallback.js');

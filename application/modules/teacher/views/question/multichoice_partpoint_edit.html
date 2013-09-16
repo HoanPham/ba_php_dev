@@ -1,4 +1,4 @@
-<div class="tab-pane fade" id="<?php echo $type5  ?>">
+<div class="tab-pane fade <?php if(isset($type_id) && $type_id == $type5 ) echo 'active in'; ?>" id="<?php echo $type5  ?>">
 	<div class="span6">
 		<div class="page-header">
 			<h4>Nội dung câu hỏi</h4>
@@ -75,7 +75,7 @@
 					foreach($choices as $row){
 						$i++;
 				?>	
-					<div id="choice<?php echo $i ?>_<?php echo $type5  ?>_width"><?php echo change_to_letter($i).". ".$row['content'] ?></div>
+					<div id="choice<?php echo $i ?>_<?php echo $type5  ?>_width"><?php echo $i.". ".$row['content'] ?></div>
 					<?php
 						}
 				?>									
@@ -89,7 +89,7 @@
 					$i++;
 			?>
 			<fieldset id="<?php echo $i ?>_<?php echo $type5  ?>">
-				<label for="choice<?php echo $i ?>_<?php echo $type5  ?>">Lựa chọn 1</label>
+				<label for="choice<?php echo $i ?>_<?php echo $type5  ?>">Lựa chọn <?php echo $i ?></label>
 				<?php
 					if($i<4){
 				?>

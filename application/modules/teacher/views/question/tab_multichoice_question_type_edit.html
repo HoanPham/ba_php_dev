@@ -1,0 +1,16 @@
+<ul id="myTab_multiple_choice" class="nav nav-tabs">
+	<li class="<?php if(isset($type_id) && $type_id == $type1) echo 'active'; ?>"><a href="#<?php echo $type1  ?>" data-toggle="tab">Truyền
+			thống</a></li>
+	<li class="<?php if(isset($type_id) && $type_id == $type4) echo 'active'; ?>"><a id="tab_question" href="#<?php echo $type4  ?>"
+		data-toggle="tab">Điểm toàn phần</a></li>
+	<li class="<?php if(isset($type_id) && $type_id == $type5) echo 'active'; ?>"><a id="tab_question" href="#<?php echo $type5  ?>"
+		data-toggle="tab">Điểm từng phần</a></li>
+	<div class="toggle btn btn-primary <?php if(isset($shuffle) && $shuffle==0) echo 'off'; ?>" id="suffle" data-toggle="toggle">
+		<input type="checkbox" id="suffle_answer">
+		<div class="toggle-group">
+			<label class="toggle-on btn btn-primary">Xáo trộn thứ tự
+				lựa chọn</label> <label class="toggle-off btn btn-info active">Cố
+				định thứ tự lựa chọn</label> <span class="toggle-handle btn"></span>
+		</div>
+	</div>
+</ul>

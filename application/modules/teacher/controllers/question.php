@@ -29,6 +29,7 @@
         $this->template->add_js('public/js/tiny_mce/plugins/asciimath/js/ASCIIMathMLwFallback.js');
         //$this->load->model('utilities/utility_model');  
     }
+
     public function load_common_data(){
     	$this->data['list_subjects'] = $this->teacher_model->getListSubjects();
     	$this->data['list_grades'] = $this->teacher_model->getListGrades();
@@ -145,13 +146,13 @@
     	$this->template->write_view('multichoice_trad','question/multichoice_trad.html',$this->data,TRUE);    	    
     	echo $this->template->render('tab_question_type');
     	echo $this->template->render('tab_multichoice_question_type');
-    	echo $this->template->render('multichoice_trad');   
+    	echo $this->template->render('multichoice_trad'); 
+    	echo "<script src=\"".base_url()."public/js/multichoice_constraints.js\"></script>";
+    	echo "<script>$('textarea').autosize(); </script>";  
     	echo "<script src=\"".base_url()."public/js/ajax_slide_animation.js\"></script>"; 	
     	echo "<script src=\"".base_url()."public/js/config.js\"></script>";
     	echo "<script src=\"".base_url()."public/js/auto_add_div.js\"></script>";
-    	echo "<script src=\"".base_url()."public/js/preview.js\"></script>";
-    	echo "<script src=\"".base_url()."public/js/multichoice_constraints.js\"></script>";
-    	echo "<script>$('textarea').autosize(); </script>";
+    	echo "<script src=\"".base_url()."public/js/preview.js\"></script>";    	
 		//echo "test";		
 		//$this->template->render();
     }
@@ -180,17 +181,29 @@
     	
     	/* Render template view */
     	$this->template->write_view('tab_question_type','question/tab_question_type.html',$this->data,TRUE);
-    	$this->template->write_view('tab_multichoice_question_type','question/tab_multichoice_question_type.html',$this->data,TRUE);
-    	$this->template->write_view('multichoice_trad','question/multichoice_trad_edit.html',$this->data,TRUE);    	    
+    	$this->template->write_view('tab_multichoice_question_type','question/tab_multichoice_question_type_edit.html',$this->data,TRUE);
     	echo $this->template->render('tab_question_type');
     	echo $this->template->render('tab_multichoice_question_type');
-    	echo $this->template->render('multichoice_trad');   
+    	switch ($this->data['type_id']){
+    		case "0101":
+	    		$this->template->write_view('multichoice_trad','question/multichoice_trad_edit.html',$this->data,TRUE);
+	    		echo $this->template->render('multichoice_trad');
+	    		break;     	
+    		case "0104":
+    			$this->template->write_view('multichoice_fullpoint','question/multichoice_fullpoint_edit.html',$this->data,TRUE);
+    			echo $this->template->render('multichoice_fullpoint'); 	
+    			break;	
+    		case "0105":
+    			$this->template->write_view('multichoice_partpoint','question/multichoice_partpoint_edit.html',$this->data,TRUE);
+    			echo $this->template->render('multichoice_partpoint');
+    			break;	   
+    	}	        	    	  
+    	echo "<script src=\"".base_url()."public/js/multichoice_constraints.js\"></script>";    	
+    	echo "<script>$('textarea').autosize(); </script>";
     	echo "<script src=\"".base_url()."public/js/ajax_slide_animation.js\"></script>"; 	
     	echo "<script src=\"".base_url()."public/js/config.js\"></script>";
     	echo "<script src=\"".base_url()."public/js/auto_add_div.js\"></script>";
-    	echo "<script src=\"".base_url()."public/js/preview.js\"></script>";
-    	echo "<script src=\"".base_url()."public/js/multichoice_constraints.js\"></script>";    	
-    	echo "<script>$('textarea').autosize(); </script>";
+    	echo "<script src=\"".base_url()."public/js/preview.js\"></script>";    	
     } 
 
     public function load_data_preview_question(){

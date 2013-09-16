@@ -61,17 +61,8 @@ MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
 });
 var AMTcgiloc = "http://www.imathas.com/cgi-bin/mimetex.cgi";  //change me
 $(document).ready(function(){
-	$("#preview_area").bind("idle.idleTimer", function(){
-		MathJax.Hub.Queue(["Typeset",MathJax.Hub,"preview_area"]);	
-	});
-	$("#modal_preview").bind("idle.idleTimer", function(){
-		MathJax.Hub.Queue(["Typeset",MathJax.Hub,"modal_preview"]);
-	});
-	$("#quick_preview_block").bind("idle.idleTimer", function(){
-		MathJax.Hub.Queue(["Typeset",MathJax.Hub,"quick_preview_block"]);
-	});
-	$('#preview_area').idleTimer(1000);
-	$('#modal_preview').idleTimer(1000);
-	$('#quick_preview_block').idleTimer(1000);
+	MathJax.Hub.Queue(["Typeset",MathJax.Hub,"preview_area"]);
+	MathJax.Hub.Queue(["Typeset",MathJax.Hub,"modal_preview"]);
+	MathJax.Hub.Queue(["Typeset",MathJax.Hub,"quick_preview_block"]);
     $('textarea').autosize();   
 });	

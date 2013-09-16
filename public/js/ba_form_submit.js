@@ -67,14 +67,12 @@ function create_question(type){
 			var textarea_id = tinyMCE.activeEditor.editorId;
 			tinymce.get(textarea_id).setContent(''); 
 			if(ajax.responseText.trim() === "Failed"){
-				document.getElementById('error').style.display = "inline-block";
-				$('.alert').addClass('fade');
-				$('.alert').addClass('in');				
+				$('#alert').css({"display":"inline-block"});
+				$('#alert').html("<div class=\"alert alert-error fade in\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\">×</button><strong>Có lỗi khi tạo câu hỏi!</strong></div>");				
 			}
 			else{
-				document.getElementById('alert').style.display = "inline-block";
-				$('.alert').addClass('fade');
-				$('.alert').addClass('in');
+				$('#alert').css({"display":"inline-block"});
+				$('#alert').html("<div class=\"alert alert-success fade in\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\">×</button><strong>Bạn đã tạo câu hỏi "+ajax.responseText+" thành công</strong></div>");
 			}
 		}
 	}	
@@ -172,9 +170,9 @@ function edit_question(type,question_id){
 			$("#list_questions").load("../teacher/question/load_data_manage_question");
 			if(ajax.responseText.trim() === "Success") window.location = "../teacher/question";
 			else{
-				document.getElementById('error').style.display = "inline-block";
-				$('.alert').addClass('fade');
-				$('.alert').addClass('in');
+				$('.alert-error').css({"display":"inline-block"});
+				$('.alert-error').addClass('fade');
+				$('.alert-error').addClass('in');	
 			}
 		}
 	}	

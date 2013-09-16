@@ -28,6 +28,7 @@ $(document).ready(function(){
 		}
 		else{
 			$("#quick_preview_block").css({"display":"none"});
+			//$(".hide_show").css({"display":"block"});
 			$("#list_questions").load("../teacher/question/load_data_manage_question");
 			$("#list_questions").css({"width":"100%"});								
 		}

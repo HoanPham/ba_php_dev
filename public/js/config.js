@@ -20,7 +20,7 @@ tinyMCE.init({
 	        var id_array = textarea_id.split("_");
 	        var question_content = tinyMCE.get(textarea_id).getContent();
 	        //alert(textarea_id);
-	        $('#preview_question_'+id_array[2]).html(question_content);	        
+	        if(id_array[2]) $('#preview_question_'+id_array[2]).html(question_content);	        
 	        MathJax.Hub.Queue(["Typeset",MathJax.Hub,"preview_area"]);
 	    });
 	},
@@ -60,5 +60,6 @@ var AMTcgiloc = "http://www.imathas.com/cgi-bin/mimetex.cgi";  //change me
 $(document).ready(function(){
 	MathJax.Hub.Queue(["Typeset",MathJax.Hub,"preview_area"]);
 	MathJax.Hub.Queue(["Typeset",MathJax.Hub,"modal_preview"]);
+	MathJax.Hub.Queue(["Typeset",MathJax.Hub,"quick_preview_block"]);
     $('textarea').autosize();   
 });	

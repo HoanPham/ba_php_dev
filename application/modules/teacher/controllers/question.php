@@ -143,10 +143,18 @@
     	/* Render template view */
     	$this->template->write_view('tab_question_type','question/tab_question_type.html',$this->data,TRUE);
     	$this->template->write_view('tab_multichoice_question_type','question/tab_multichoice_question_type.html',$this->data,TRUE);
-    	$this->template->write_view('multichoice_trad','question/multichoice_trad.html',$this->data,TRUE);    	    
+    	$this->template->write_view('multichoice_trad','question/multichoice_trad.html',$this->data,TRUE);
+    	$this->template->write_view('multichoice_fullpoint','question/multichoice_fullpoint.html',$this->data,TRUE);
+    	$this->template->write_view('multichoice_partpoint','question/multichoice_partpoint.html',$this->data,TRUE);
+    	$this->template->write_view('short_answer','question/short_answer.html',$this->data,TRUE);
+    	$this->template->write_view('cloze','question/cloze.html',$this->data,TRUE);
     	echo $this->template->render('tab_question_type');
     	echo $this->template->render('tab_multichoice_question_type');
-    	echo $this->template->render('multichoice_trad'); 
+    	echo $this->template->render('multichoice_trad');
+    	echo $this->template->render('multichoice_fullpoint');
+    	echo $this->template->render('multichoice_partpoint');
+    	echo $this->template->render('short_answer'); 
+    	echo $this->template->render('cloze');  
     	echo "<script src=\"".base_url()."public/js/multichoice_constraints.js\"></script>";
     	echo "<script>$('textarea').autosize(); </script>";  
     	echo "<script src=\"".base_url()."public/js/ajax_slide_animation.js\"></script>"; 	

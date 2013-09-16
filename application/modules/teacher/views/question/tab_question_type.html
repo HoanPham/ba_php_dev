@@ -1,9 +1,7 @@
 <ul id="myTab" class="nav nav-tabs" style="margin-bottom: 15px;">
-	<li class="<?php if(isset($type_id) && ($type_id == $type6 || $type_id == $type7)) echo '';else echo 'active'; ?>"><a href="#multiple_choice" data-toggle="tab">Trắc
-			nghiệm</a></li>
-	<li class="<?php if(isset($type_id) && $type_id == $type6) echo 'active' ?>"><a id="tab_question" href="#<?php echo $type6  ?>"
-		data-toggle="tab">Câu trả lời ngắn</a></li>
-	<li class="<?php if(isset($type_id) && $type_id == $type6) echo 'active' ?>"><a id="tab_question" href="#<?php echo $type7 ?>" data-toggle="tab">Cloze</a>
+	<li class="active"><a href="#multiple_choice" data-toggle="tab">Trắc nghiệm</a></li>
+	<li><a id="tab_question" href="#<?php echo $type6  ?>" data-toggle="tab">Câu trả lời ngắn</a></li>
+	<li><a id="tab_question" href="#<?php echo $type7 ?>" data-toggle="tab">Cloze</a>
 	</li>
 	<select id="curriculum">
 		<?php
@@ -44,27 +42,10 @@
 	?>
 	<div class="alert" id="alert" style="display: none;">
       <button type="button" class="close" data-dismiss="alert">×</button>
-      <?php
-		if(!isset($question_id)){
-	  ?>
       <strong>Bạn đã tạo câu hỏi thành công!</strong>
-      <?php
-      	}
-	  ?>
    	</div>
    	<div class="alert alert-error" id="error" style="display: none;">
       <button type="button" class="close" data-dismiss="alert">×</button>
-      <?php
-		if(!isset($question_id)){
-	  ?>
       <strong>Có lỗi khi tạo câu hỏi!</strong>
-      <?php
-      	}
-		else{
-	  ?>
-	  <strong>Có lỗi khi lưu câu hỏi!</strong>
-	  <?php
-	  	}
-	  ?>
    	</div>
 </ul>

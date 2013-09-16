@@ -26,13 +26,7 @@ $(document).ready(function(){
 	$('#manage_question_slide').click(function() {	
 		if(!$(".btn.quick_preview").hasClass('off')){
 			$("#quick_preview_block").css({"display":"block"});
-			$(".no_ku").css({"display":"none"});
-			$(".no_skill").css({"display":"none"});
-			$(".date_create").css({"display":"none"});
-			$(".date_edit").css({"display":"none"});
-			$(".edit").css({"display":"none"});
-			$(".show_modal_preview").css({"display":"none"});
-			$(".delete").css({"display":"none"});
+			$(".hide_show").css({"display":"none"});
 			$("#list_questions").css({"width":"51%","float":"left"});
 		}
 		$("#manage_questions").css({

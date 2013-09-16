@@ -22,13 +22,7 @@ $(document).ready(function(){
 	});	
 	$('.btn.quick_preview').click(function(){
 		if($(this).hasClass('off')){			
-			$(".no_ku").css({"display":"none"});
-			$(".no_skill").css({"display":"none"});
-			$(".date_create").css({"display":"none"});
-			$(".date_edit").css({"display":"none"});
-			$(".edit").css({"display":"none"});
-			$(".show_modal_preview").css({"display":"none"});
-			$(".delete").css({"display":"none"});
+			$(".hide_show").css({"display":"none"});
 			$("#list_questions").css({"width":"51%","float":"left"});
 			$("#quick_preview_block").css({"display":"block","width":"41%","right":"0","position":"fixed"});
 		}
